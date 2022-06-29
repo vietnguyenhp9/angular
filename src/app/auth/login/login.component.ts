@@ -13,7 +13,7 @@ userName='';
 password='';
   constructor(
     private formBuilder:FormBuilder,
-    authSvc:AuthService
+    private authSvc:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -24,5 +24,12 @@ password='';
       userName:[''],
       password:['']
     })
+  }
+
+  public onSubmit(){
+    if(this.loginform.invalid){
+      return
+    }
+    this.authSvc.login(this.loginform.value);
   }
 }
