@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.ADD_NEW_CONTRACT' | translate }}</h4>
+    <form [formGroup]="form">
+      <div class="mb-3" *ngIf="allowSelectPT">
+        <label class="form-label">{{ 'TABLE.CLUB' | translate }}</label>
+        <ng-select [placeholder]="'SELECTBOX.CLUB' | translate" (ngModel)="selectedClub"
+          (change)="onChangeClub($event)">
+          <ng-option *ngFor="let club of listClub" [value]="club.clubId">
+            {{ translate.currentLang === 'en' ?club.clubNameEn:club.clubNameEn }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="mb-3" *ngIf="!allowSelectPT">
+        <label class="form-label">{{ 'TABLE.PT_NAME' | translate }}</label>
+        <input type="hidden" class="form-control" formControlName="ptId" [value]="ptId" />
+        <input type="text" class="form-control" [value]="ptName" [readonly]="!allowSelectPT" />
+      </div>
+      <div class="mb-3" *ngIf="allowSelectPT">
+        <label class="form-label">{{ 'TABLE.PT_NAME' | translate }}</label>
+        <ng-select formControlName="ptId" [placeholder]="'SELECTBOX.PT' | translate" [clearable]="false">
+          <ng-option *ngFor="let pt of listPtByClub" [value]="pt.ptId">
+            {{ pt.fullName }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">{{ 'TABLE.PT_PACKAGE' | translate}}</label>
+        <ng-select formControlName="ptPackageId" [placeholder]="'SELECTBOX.PACKAGE' | translate" [clearable]="false">
+          <ng-option *ngFor="let package of listPtPakageByClub" [value]="package.id">
+            {{ translate.currentLang === 'en' ? package.nameEn : package.nameVi }} - {{ package.price | currency:
+            'VND':''}}
+          </ng-option>
+        </ng-select>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

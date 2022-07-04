@@ -1,0 +1,96 @@
+<div class="card">
+    <div class="card-body h-vh100">
+        <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'DATA.REPORTS.PAYROLL_TITLE' | translate }}</h4>
+        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills nav-justified nav">
+            <ng-template ngxPermissionsOnly="G_RELISTPT">
+                <li [ngbNavItem]="1" [ngbTooltip]="'TAB_MENU.PT_SALARY' | translate">
+                    <a ngbNavLink>
+                        <span class="d-block d-sm-none"><i class="fas fa-id-card"></i></span>
+                        <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.PT_SALARY" |translate}}</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-template [ngTemplateOutlet]="PtSalary"></ng-template>
+                    </ng-template>
+                </li>
+            </ng-template>
+            <ng-template ngxPermissionsOnly="G_RELISTGM">
+                <li [ngbNavItem]="2" [ngbTooltip]="'TAB_MENU.GM_SALARY' | translate">
+                    <a ngbNavLink>
+                        <span class="d-block d-sm-none"><i class="far fa-id-card"></i></span>
+                        <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.GM_SALARY" |translate}}</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-template [ngTemplateOutlet]="GmSalary"></ng-template>
+                    </ng-template>
+                </li>
+            </ng-template>
+            <ng-template ngxPermissionsOnly="G_RELISTLEADER">
+                <li [ngbNavItem]="3" [ngbTooltip]="'TAB_MENU.LEADER_SALARY' | translate">
+                    <a ngbNavLink>
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.LEADER_SALARY" |translate}}</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-template [ngTemplateOutlet]="LeaderSalary"></ng-template>
+                    </ng-template>
+                </li>
+            </ng-template>
+            <ng-template ngxPermissionsOnly="G_RELISTGROUP">
+                <li [ngbNavItem]="4" [ngbTooltip]="'TAB_MENU.GROUP_REVENUE' | translate">
+                    <a ngbNavLink>
+                        <span class="d-block d-sm-none"><i class="fas fa-layer-group"></i></span>
+                        <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.GROUP_REVENUE" | translate}}</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-template [ngTemplateOutlet]="GroupRevenue"></ng-template>
+                    </ng-template>
+                </li>
+            </ng-template>
+            <ng-template ngxPermissionsOnly="G_RELISTCLUB">
+                <li [ngbNavItem]="5" [ngbTooltip]="'TAB_MENU.CLUB_REVENUE' | translate">
+                    <a ngbNavLink>
+                        <span class="d-block d-sm-none"><i class="fas fa-box"></i></span>
+                        <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.CLUB_REVENUE" | translate}}</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-template [ngTemplateOutlet]="ClubRevenue"></ng-template>
+                    </ng-template>
+                </li>
+            </ng-template>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </div>
+</div>
+
+<!-- Tab Pt Salary -->
+<ng-template #PtSalary>
+    <app-report-pt-salary [listClub]="listClub" [listMonth]="listMonth" [listYear]="listYear" [userInfo]="userInfo"
+        [hyperLinkMemberPayroll]="hyperLinkMemberPayroll">
+    </app-report-pt-salary>
+</ng-template>
+
+<!-- Tab Gm Salary -->
+<ng-template #GmSalary>
+    <app-report-gm-salary [listClub]="listClub" [listMonth]="listMonth" [listYear]="listYear" [userInfo]="userInfo"
+        [hyperLinkMemberPayroll]="hyperLinkMemberPayroll">
+    </app-report-gm-salary>
+</ng-template>
+
+<!-- Tab Leader Salary -->
+<ng-template #LeaderSalary>
+    <app-report-leader-salary [listClub]="listClub" [listMonth]="listMonth" [listYear]="listYear" [userInfo]="userInfo"
+        [hyperLinkMemberPayroll]="hyperLinkMemberPayroll">
+    </app-report-leader-salary>
+</ng-template>
+
+<!-- Tab Group Revenue -->
+<ng-template #GroupRevenue>
+    <app-report-group-revenue [listClub]="listClub" [listMonth]="listMonth" [listYear]="listYear" [userInfo]="userInfo">
+    </app-report-group-revenue>
+</ng-template>
+
+<!-- Tab Club Revenue -->
+<ng-template #ClubRevenue>
+    <app-report-club-revenue [listClub]="listClub" [listMonth]="listMonth" [listYear]="listYear" [userInfo]="userInfo">
+    </app-report-club-revenue>
+</ng-template>

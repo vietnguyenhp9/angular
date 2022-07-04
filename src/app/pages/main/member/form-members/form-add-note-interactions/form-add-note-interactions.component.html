@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.ADD_NEW_NOTE' | translate }}</h4>
+    <form [formGroup]="form">
+      <div class="mb-3 flex flex-column">
+        <label class="form-label">{{ 'TABLE.NOTE' | translate}}</label>
+        <textarea formControlName="note" rows="4"></textarea>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600" (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

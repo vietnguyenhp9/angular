@@ -1,0 +1,88 @@
+<div class="card">
+    <div class="card-body h-vh100">
+        <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'DATA.REPORTS.REVENUE_TITLE' | translate }}</h4>
+        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills nav-justified nav">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>
+                    <span class="d-block d-sm-none"><i class="fas fa-file-contract"></i></span>
+                    <span class="d-none d-sm-block text-uppercase">{{ "TAB_MENU.MEMBER_CONTRACT" |translate }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <ng-template [ngTemplateOutlet]="MemberContract"></ng-template>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>
+                    <span class="d-block d-sm-none"><i class="fas fa-money-check-alt"></i></span>
+                    <span class="d-none d-sm-block text-uppercase">{{ "TAB_MENU.MEMBER_TRANSACTION" |translate }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <ng-template [ngTemplateOutlet]="MemberTransaction"></ng-template>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+                <a ngbNavLink>
+                    <span class="d-block d-sm-none"><i class="fas fa-file-signature"></i></span>
+                    <span class="d-none d-sm-block text-uppercase">{{ "TAB_MENU.PT_CONTRACT" |translate }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <ng-template [ngTemplateOutlet]="PtContract"></ng-template>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
+                <a ngbNavLink>
+                    <span class="d-block d-sm-none"><i class="fas fa-money-bill-alt"></i></span>
+                    <span class="d-none d-sm-block text-uppercase">{{ "TAB_MENU.PT_TRANSACTION" |translate }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <ng-template [ngTemplateOutlet]="PtTransaction"></ng-template>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="5">
+                <a ngbNavLink>
+                    <span class="d-block d-sm-none"><i class="fab fa-product-hunt"></i></span>
+                    <span class="d-none d-sm-block text-uppercase">{{ "TAB_MENU.PRODUCT_TRANSACTION" |translate
+                        }}</span>
+                </a>
+                <ng-template ngbNavContent>
+                    <ng-template [ngTemplateOutlet]="ProductTransaction"></ng-template>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </div>
+</div>
+
+<!-- Tab Member Contract -->
+<ng-template #MemberContract>
+    <app-report-member-contract [listClub]="listClub" [userInfo]="userInfo"
+        [hyperLinkMemberRevenue]="hyperLinkMemberRevenue">
+    </app-report-member-contract>
+</ng-template>
+
+<!-- Tab Member Transaction -->
+<ng-template #MemberTransaction>
+    <app-report-member-transaction [listClub]="listClub" [listPaymentMethod]="listPaymentMethod" [userInfo]="userInfo"
+        [hyperLinkMemberRevenue]="hyperLinkMemberRevenue">
+    </app-report-member-transaction>
+</ng-template>
+
+<!-- Tab PT Contract -->
+<ng-template #PtContract>
+    <app-report-pt-contract [listClub]="listClub" [listPackage]="listPackage" [userInfo]="userInfo"
+        [hyperLinkMemberRevenue]="hyperLinkMemberRevenue">
+    </app-report-pt-contract>
+</ng-template>
+
+<!-- Tab Pt Transaction -->
+<ng-template #PtTransaction>
+    <app-report-pt-transaction [listClub]="listClub" [listPaymentMethod]="listPaymentMethod" [userInfo]="userInfo"
+        [hyperLinkMemberRevenue]="hyperLinkMemberRevenue">
+    </app-report-pt-transaction>
+</ng-template>
+
+<!-- Tab Content -->
+<ng-template #ProductTransaction>
+    <app-report-product-transaction [listClub]="listClub" [listPaymentMethod]="listPaymentMethod" [userInfo]="userInfo">
+    </app-report-product-transaction>
+</ng-template>

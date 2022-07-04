@@ -1,0 +1,123 @@
+<div class="row mt-0">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-uppercase card-border-title">{{ 'DATA.EMPLOYEES.LIST_LEADER_TITLE' | translate }}
+        </h4>
+        <div class="row mb-3 mt-2">
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mt-2" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus($event)"
+              [placeholder]="'SELECTBOX.STATUS' | translate">
+              <ng-option *ngFor="let status of listStatus" [value]="status">
+                {{ status }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mt-2" [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub($event)"
+              [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+              <ng-option *ngFor="let club of listClubs" [value]="club.id">
+                {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mt-2" [(ngModel)]="selectedGroup" (ngModelChange)="onChangeGroup($event)"
+              [placeholder]="'SELECTBOX.GROUP' | translate">
+              <ng-option *ngFor="let group of listGroups" [value]="group.id">
+                {{ group.groupName}}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mt-2" [(ngModel)]="selectedPt" (ngModelChange)="onChangeLeader($event)"
+              [placeholder]="'SELECTBOX.PT' | translate">
+              <ng-option *ngFor="let pt of listPt" [value]="pt.ptId">
+                {{ pt.ptName}}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <!-- Table  -->
+        <div class="col-12 h-vh100">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+              <thead>
+                <tr class="text-center text-overflow text-uppercase font-size-15">
+                  <th scope="col"></th>
+                  <th scope="col">{{ 'TABLE.NOTES' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.PT_NAME' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.CUSTOMER_NAME' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.PT_PACKAGE' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.SESSION_NUMBER' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.LEADER_NAME' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.CREATED_DATE' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.ACTION_BY' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.ACTION_DATE' | translate }}</th>
+                  <th scope="col">{{ 'TABLE.ACTION' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="align-middle h6 h-80 font-size-13" *ngFor="let request of listPTRequest">
+                  <td class="text-center position-relative wm-70">
+                    <span [ngClass]="request.requestClass"></span>
+                  </td>
+                  <td class="text-center text-capitalize">{{ request?.note ||'-'}}</td>
+                  <td class="text-center">{{ request?.ptName||'-' }}</td>
+                  <td class="text-center">{{ request?.customerName || '-' }}</td>
+                  <td class="text-center">{{ request?.packageNameEn || '-' }}</td>
+                  <td class="text-center">{{ request?.sessionNumber||'-' }}</td>
+                  <td class="text-center">{{ request?.leaderName||'-' }}</td>
+                  <td class="text-center">
+                    <p class="m-0">{{request?.createdDate| date: dayFormat ||'-'}}</p>
+                    <p class="m-0 pt-1"></p>{{request?.createdDate| date: timeFormat ||'-'}}
+                  </td>
+                  <td class="text-center">
+                    {{request?.actionBy||'-'}}
+                  </td>
+                  <td class="text-center">
+                    <p class="m-0">{{request?.actionDate| date: dayFormat ||'-'}}</p>
+                    <p class="m-0 pt-1">{{(request?.actionDate| date: timeFormat) ||'-' }}</p>
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-sm m-1 btn-only-shadow" [disabled]="request.status !== 'WAITFORAPPROVE'"
+                      (click)="acceptRequest(request.id)"
+                      [ngClass]="request.status !== 'WAITFORAPPROVE' ? 'btn-default' : 'btn-primary'">
+                      <i class="fas fa-check"></i>
+                    </button>
+                    <button class="btn btn-sm m-1 btn-only-shadow" [disabled]="request.status !== 'WAITFORAPPROVE'"
+                      title="Reject" (click)="rejectRequest(request.id)"
+                      [ngClass]="request.status !== 'WAITFORAPPROVE' ? 'btn-default' : 'btn-danger'">
+                      <i class="fas fa-window-close"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-center pagination-footer flex-wrap pagination-rounded">
+            <div class="paging-limit mt-3">
+              <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getListRequestLeader()">
+                <ng-option [value]="10">10</ng-option>
+                <ng-option [value]="20">20</ng-option>
+                <ng-option [value]="50">50</ng-option>
+              </ng-select>
+            </div>
+            <div class="paging-nav h6">
+              <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+                (pageChange)="loadNext($event)">
+                <ng-template ngbPaginationPrevious>PREV</ng-template>
+                <ng-template ngbPaginationNext>NEXT</ng-template>
+              </ngb-pagination>
+            </div>
+            <div class="paging-total mt-3">
+              <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span
+                class="h6 fw-bold">{{ pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

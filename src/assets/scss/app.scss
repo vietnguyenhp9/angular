@@ -1,0 +1,45 @@
+// Responsive
+@import "responsive";
+//Fonts
+@import "custom/fonts/fonts";
+
+//Core files
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "variables";
+@import "./node_modules/bootstrap/scss/mixins.scss";
+
+// Structure
+@import "custom/structure/general";
+@import "custom/structure/topbar";
+@import "custom/structure/page-head";
+@import "custom/structure/vertical";
+@import "custom/structure/layouts";
+
+// Components
+@import "custom/components/avatar";
+@import "custom/components/helper";
+@import "custom/components/forms";
+@import "custom//components/time-line";
+// Plugins
+@import "custom/plugins/custom-scrollbar";
+@import "custom/plugins/calendar";
+// @import "custom/plugins/toastr";
+@import "custom/plugins/select2";
+@import "custom/plugins/form-upload";
+@import "custom/plugins/switch";
+@import "custom/plugins/datepicker";
+@import "custom/plugins/bootstrap-touchspin";
+@import "custom/plugins/form-editors";
+@import "custom/plugins/datatable";
+@import "custom/plugins/responsive-table";
+@import "custom/plugins/apexcharts";
+
+// Pages
+@import "custom/pages/authentication";
+@import "custom/pages/extras-pages";
+
+@import "./custom";
+@import "./padding-margin";
+@import "./custom/components/login";
+@import "./custom/components/image-detail";

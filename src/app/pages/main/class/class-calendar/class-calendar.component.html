@@ -1,0 +1,39 @@
+<div class="card mb-5">
+  <div class="card-body h-vh100">
+    <div class="card-border-title flex-between pb-1 pt-0 mt-0 mt-5-">
+      <h4 class="card-title text-uppercase ">{{ 'DATA.CLASS.CLASS_CALENDAR' | translate }}</h4>
+      <ng-template [ngxPermissionsOnly]="'P_CLASSCALENDAR'">
+        <button class="btn btn-primary btn-md text-uppercase mt-1 mt-xl-0 mt-lg-0 mt-md-0 mt-sm-0 btn-shadow"
+          (click)="addScheduleClass()">
+          <i class="fas fa-plus"></i></button>
+      </ng-template>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-3 mt-2">
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mt-2" [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub($event)"
+              [clearable]="false" [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+              <ng-option *ngFor="let club of listClub" [value]="club.id">
+                {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class=" col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mt-2" [(ngModel)]="selectedClass" (ngModelChange)="onChangeClass($event)"
+              [placeholder]="'SELECTBOX.CLASS' | translate">
+              <ng-option *ngFor="let class of listClass" [value]="class.id">
+                {{ this.translate.currentLang === 'en' ? class.nameEn: class.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <!-- Calendar -->
+      <div class="col-12 h-vh100">
+        <full-calendar #calendar [options]="calendarOptions">
+        </full-calendar>
+      </div>
+    </div>
+  </div>
+</div>

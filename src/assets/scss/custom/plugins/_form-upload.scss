@@ -1,0 +1,37 @@
+//
+// Form-Upload
+//
+
+@import "~dropzone/dist/min/dropzone.min.css";
+/* Dropzone */
+.dropzone {
+  min-height: 230px;
+  border: 2px dashed $gray-400 !important;
+  background: $card-bg !important;
+  border-radius: 6px;
+  .dropzone {
+    border: none !important;
+  }
+  .dz-message {
+    font-size: 15px;
+    min-height: 150px !important;
+    border: none !important;
+    background: $card-bg !important;
+    color: $input-color !important;
+  }
+}
+
+.dropzone .dz-preview {
+  .dz-remove {
+    border: 1px solid black !important;
+    width: 150px;
+    margin-top: 10px;
+    border-radius: 3px;
+    padding: 2px;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  .dz-details {
+    z-index: -1 !important;
+  }
+}

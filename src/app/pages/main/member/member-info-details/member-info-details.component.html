@@ -1,0 +1,88 @@
+<div class="card">
+  <div class="card-body h-vh100">
+    <h4 class="card-title mb-4 text-uppercase card-border-title cursor-pointer" routerLink=".."><i
+        class="fas fa-arrow-circle-left mr-10"></i>{{
+      'GO_BACK.TITLE' | translate }}</h4>
+    <!-- CardUser -->
+    <div class="row">
+      <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card overflow-hidden">
+          <div class="card-body pt-0">
+            <div class="row flex justify-content-center">
+              <div class="col-4 mt-2 flex flex-column align-items-center">
+                <div class="profile-user-wid mt-3 text-center">
+                  <div class="avatar-img" [ngClass]="avatarColor" (click)="openImage(avatarUser,'ava')"
+                    style="background:url('{{ avatarUser }}')">
+                  </div>
+                </div>
+                <h5 class="mt-3 text-capitalize text-overflow text-wrap text-center">{{
+                  userMemberInfo?.memberContract?.status ||
+                  'NO CONTRACT' }}</h5>
+              </div>
+              <div class="col-sm-8">
+                <div class="pt-4">
+                  <ul class="list-unstyled mb-0 font-w500">
+                    <li class="d-flex justify-content-between align-items-center card-border-1x">
+                      <h5 class="font-size-15">{{ userMemberInfo?.firstName + ' ' + userMemberInfo?.lastName }}
+                        <span>[{{userId}}]</span>
+                      </h5>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center card-border-1x mt-3 mb-3">
+                      <p class="mb-0">{{ 'USER_INFO.REGISTRATION' | translate }}: </p>
+                      <span>{{ userMemberInfo?.createdAt | date: formatDate }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center card-border-1x mt-3 mb-3">
+                      <p class="mb-0">{{ 'USER_INFO.PHONE' | translate }}: </p>
+                      <span>{{ userMemberInfo?.phoneNumber }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center card-border-1x mt-3 mb-3">
+                      <p class="mb-0">{{ 'USER_INFO.EMAIL' | translate }}: </p>
+                      <span class="text-overflow">{{ userMemberInfo?.email }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 col-sm-6">
+        <div class="card overflow-hidden">
+          <div class="indentity-card" (click)="openImage(userIdentityCard,'idCard')"
+            style="background-image: url('{{ userIdentityCard }}');"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Justified Tabs -->
+    <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav-pills nav-justified">
+      <li *ngFor="let link of tabNames ; let i = index" [ngbNavItem]="link.id">
+        <a ngbNavLink class="pt-2 pb-2 m-1" [ngbTooltip]="link.name | translate">
+          <span class="d-block d-sm-none"><i [ngClass]="tabIcons[i]"></i></span>
+          <span class="d-none d-sm-block font-size-15 text-uppercase text-overflow">{{ link.name |
+            translate }}</span>
+        </a>
+        <ng-template ngbNavContent>
+          <ng-template *ngTemplateOutlet="linkTemplate; context: { template: link.template }"></ng-template>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="justifiednav"></div>
+  </div>
+  <!-- End Justified Tabs -->
+</div>
+<!-- Tab Content -->
+<ng-template #linkTemplate let-template="template">
+  <app-member-tab-information *ngIf="template === 'information'" [userId]="userId"
+    (getUserMemberInfo)="getUserMemberInfoFromChild($event)">
+  </app-member-tab-information>
+  <app-member-tab-contract *ngIf="template === 'contract'" [userId]="userId"></app-member-tab-contract>
+  <app-member-tab-pt-contract *ngIf="template === 'ptcontract'" [userId]="userId" [currentClubId]="currentClubId">
+  </app-member-tab-pt-contract>
+  <app-member-tab-product *ngIf="template === 'product'" [userId]="userId"></app-member-tab-product>
+  <app-member-tab-access-control *ngIf="template === 'accesscontrol'" [userId]="userId">
+  </app-member-tab-access-control>
+  <app-member-tab-interactions *ngIf="template === 'interactions'" [userId]="userId"></app-member-tab-interactions>
+  <app-member-tab-bookings *ngIf="template === 'bookings'" [userId]="userId"></app-member-tab-bookings>
+  <!-- <app-member-tab-changes *ngIf="template === 'changes'" [userId]="userId"></app-member-tab-changes> -->
+</ng-template>

@@ -1,0 +1,25 @@
+//RESPONSIVE
+$DESKTOP: 1440px;
+$IPADPRO: 1366px;
+$IPAD: 1023px;
+$PHONE: 767px;
+
+@mixin Responsive($canvas) {
+  @if $canvas == PHONE {
+    @media only screen and (max-width: $PHONE) {
+      @content;
+    }
+  } @else if $canvas == IPAD {
+    @media only screen and (max-width: $IPAD) {
+      @content;
+    }
+  } @else if $canvas == IPADPRO {
+    @media only screen and (max-width: $IPADPRO) {
+      @content;
+    }
+  } @else if $canvas == DESKTOP {
+    @media only screen and (min-width: $DESKTOP) {
+      @content;
+    }
+  }
+}

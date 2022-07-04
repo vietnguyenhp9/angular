@@ -1,0 +1,97 @@
+<div class="card tng-tooltip">
+  <div class="card-body font-size-15 position-relative">
+    <h4 class="card-title mb-1 text-uppercase card-border-title text-center">{{ 'FORM.TNGPAY_HISTORY' | translate }}
+    </h4>
+    <div class="card-btn-close">
+      <i (click)="onClose()" class="fas fa-window-close"></i>
+    </div>
+    <div *ngIf="subDetail?.length; else noData">
+      <div class="container" *ngFor="let item of subDetail">
+        <div class="row align-items-center mb-4 timeline-border flex-between">
+          <div class="col">
+            <div class="timeline-date flex flex-column align-items-center mt-2">
+              <i
+                [ngClass]="item.isSuccess ? 'subscription-success fas fa-check' : 'subscription-fail fas fa-times'"></i>
+              <p class="mt-2 mb-xl-2 mb-lg-2 mb-md-3 mb-sm-3 mb-3 font-w600 font-size-13 text-center">
+                <span class="font-size-16 text-charge-index">T{{ item.chargeIndex }}: </span>
+                {{item.createdAt | date: dateFormat }} |
+                {{item.createdAt | date: timeFormat}}
+              </p>
+            </div>
+          </div>
+          <div class="col">
+            <!-- TimeLine -->
+            <div class="timeline-proccess">
+              <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+                <div class="timeline-step">
+                  <div class="timeline-content">
+                    <i class="icon" [ngbTooltip]="item.stepOneResult === 'FAIL' ? item.stepInfo[0]?.message : ''"
+                      [ngClass]="item.stepOneResult === 'SUCCESS' ? 'icon-check-success fas fa-check' : (item.stepOneResult === 'FAIL' ?'icon-check-fail fas fa-times' : 'icon-check-default fas fa-minus' )"></i>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-text">{{ item.stepInfo[0]?.name ||
+                      'DATA.SUBSCRIPTIONS.TIME_LINE.CREATE_CONTRACT' | translate}} </p>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-number">{{ item.stepInfo[0]?.step || 1 }}</p>
+                  </div>
+                </div>
+                <div class="timeline-step">
+                  <div class="timeline-content">
+                    <i class="icon" [ngbTooltip]="item.stepTwoResult === 'FAIL' ? item.stepInfo[1]?.message : ''"
+                      [ngClass]="item.stepTwoResult === 'SUCCESS' ? 'icon-check-success fas fa-check' : (item.stepTwoResult === 'FAIL' ?'icon-check-fail fas fa-times' : 'icon-check-default fas fa-minus' )"></i>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-text">{{ item.stepInfo[1]?.name ||
+                      'DATA.SUBSCRIPTIONS.TIME_LINE.MAKE_PAYMENT' | translate }}</p>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-number">{{ item.stepInfo[1]?.step || 2 }}</p>
+                  </div>
+                </div>
+                <div class="timeline-step">
+                  <div class="timeline-content">
+                    <i class="icon" [ngbTooltip]="item.stepThreeResult === 'FAIL' ? item.stepInfo[2]?.message : ''"
+                      [ngClass]="item.stepThreeResult === 'SUCCESS' ? 'icon-check-success fas fa-check' : (item.stepThreeResult === 'FAIL' ?'icon-check-fail fas fa-times' : 'icon-check-default fas fa-minus' )"></i>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-text">{{ item.stepInfo[2]?.name ||
+                      'DATA.SUBSCRIPTIONS.TIME_LINE.ONEPAY_RESULT' | translate }}</p>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-number">{{ item.stepInfo[2]?.step || 3 }}</p>
+                  </div>
+                </div>
+                <div class="timeline-step">
+                  <div class="timeline-content">
+                    <i class="icon" [ngbTooltip]="item.stepFourResult === 'FAIL' ? item.stepInfo[3]?.message : ''"
+                      [ngClass]="item.stepFourResult === 'SUCCESS' ? 'icon-check-success fas fa-check' : (item.stepFourResult === 'FAIL' ?'icon-check-fail fas fa-times' : 'icon-check-default fas fa-minus' )"></i>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-text">{{ item.stepInfo[3]?.name ||
+                      'DATA.SUBSCRIPTIONS.TIME_LINE.IPN_RESULT' |
+                      translate }}
+                    </p>
+                    <p class="h6 mt-3 mb-1 font-w600 step-subtitle-number">{{ item.stepInfo[3]?.step || 4 }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- EndTimeLine -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="text-center pagination-footer flex-wrap pagination-rounded" *ngIf="subDetail?.length">
+      <div class="paging-limit mt-3">
+        <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getListDetailSubscriptions()">
+          <ng-option [value]="5">5</ng-option>
+          <ng-option [value]="10">10</ng-option>
+        </ng-select>
+      </div>
+      <div class="paging-nav h6">
+        <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+          [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+          (pageChange)="loadNext($event)">
+          <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+          <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+        </ngb-pagination>
+      </div>
+      <div class="paging-total mt-3">
+        <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span class="h6 fw-bold">{{
+          pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <!-- NO Data -->
+  <ng-template #noData>
+    <p class="text-center mb-0 pt-2">{{ 'FORM.NO_DATA' | translate }}</p>
+  </ng-template>

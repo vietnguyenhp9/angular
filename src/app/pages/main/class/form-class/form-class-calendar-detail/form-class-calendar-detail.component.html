@@ -1,0 +1,56 @@
+<div class="card" ngbAutofocus style="z-index: 9999;">
+  <div class="card-body font-size-15">
+    <h4 class="card-title text-uppercase card-border-title text-overflow">{{ translate.currentLang === 'en' ?
+      classBookingDetail.nameEn : classBookingDetail.nameVi }} | {{ classBookingDetail.beginningDateTime | date:
+      dateFormat}} | {{ titleHeader }}</h4>
+    <div class="card-btn-close">
+      <i (click)="onClose()" class="fas fa-window-close"></i>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table
+            class="table table-striped table table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+              <tr class="text-center text-overflow text-uppercase font-size-15">
+                <th scope="col">{{ 'TABLE.CUSTOMER_NAME' | translate }}</th>
+                <th scope="col">{{ 'TABLE.BOOK_TIME' | translate }}</th>
+                <th scope="col">{{ 'TABLE.PHONE' | translate }}</th>
+                <th scope="col">{{ 'TABLE.IS_RESERVED' | translate }}</th>
+                <th scope="col">{{ 'TABLE.STATUS' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="align-middle h6 font-size-14" *ngFor="let item of listClassBooking">
+                <td class="text-center cursor-pointer" (click)="hyperLinkCustomer(item.accountId)">{{ item.fullName }}
+                </td>
+                <td class="text-center">
+                  {{ (item.bookedTime | date: dateFormat) + ' | ' + (item.bookedTime | date: timeFormat) }}
+                </td>
+                <td class="text-center">{{ item.phoneNumber }}</td>
+                <td class="text-center text-info">{{ item.isReserved ? 'RESERVED' : "OFFICIAL"}}</td>
+                <td class="text-center">{{ item.status }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+      <ng-template [ngxPermissionsOnly]="'D_CLASSCALENDAR'">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onDelete(classBookingDetail.idBook)">
+          {{ 'BUTTON.DELETE' | translate}}
+        </button>
+      </ng-template>
+      <ng-template [ngxPermissionsOnly]="'PU_CLASSCALENDAR'">
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onEdit()">
+          {{ 'BUTTON.EDIT' | translate }}
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-body h-vh100">
+    <div class="row">
+      <!-- Table -->
+      <div class="col-12 h-vh100">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+              <tr class="text-center text-overflow text-uppercase font-size-15">
+                <th scope="col">{{ 'TABLE.PRODUCT_NAME' | translate }}</th>
+                <th scope="col">{{ 'TABLE.QUANTITY' | translate }}</th>
+                <th scope="col">{{ 'TABLE.TOTAL' | translate }}</th>
+                <th scope="col">{{ 'TABLE.SELLER' | translate }}</th>
+                <th scope="col">{{ 'TABLE.DATE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="align-middle h6 h-80 font-size-14" *ngFor="let item of listMemberProducts">
+                <td class="text-center">
+                  {{ translate.currentLang === 'en' ? item?.productNameEn : item?.productNameVi }}
+                </td>
+                <td class="text-center">{{ item.quantity }}</td>
+                <td class="text-center">{{ item.totalProduct }}</td>
+                <td class="text-center">{{ item.fullName }}</td>
+                <td class="text-center">
+                  <p class="m-0">{{ item.createdAt | date: dayFormat }}</p>
+                  <p class="m-0 pt-2">{{ item.createdAt | date: timeFormat || '-' }}</p>
+                </td>
+                <td class="text-center"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center pagination-footer flex-wrap pagination-rounded">
+          <div class="paging-limit mt-3">
+            <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getListMemberProducts()">
+              <ng-option [value]="10">10</ng-option>
+              <ng-option [value]="20">20</ng-option>
+              <ng-option [value]="50">50</ng-option>
+            </ng-select>
+          </div>
+          <div class="paging-nav h6">
+            <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+              [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+              (pageChange)="loadNext($event)">
+              <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+              <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+            </ngb-pagination>
+          </div>
+          <div class="paging-total mt-3">
+            <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span
+              class="h6 fw-bold">{{
+              pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

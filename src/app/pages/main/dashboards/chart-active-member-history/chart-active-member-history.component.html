@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="row flex-between flex-wrap">
+        <div class="col-12 col-sm-4 col-md-5 col-lg-5 col-xl-5">
+          <h4 class="card-title text-uppercase text-overflow">{{ 'DATA.DASHBOARDS.CHART.ACTICE_MEMBER_HISTORY' |
+            translate }}
+          </h4>
+        </div>
+        <div class="col-12 col-sm-8 col-md-7 col-lg-7 col-xl-7">
+          <div class="card-select flex-nowrap">
+            <div class="row">
+              <div class="col-6 pe-1">
+                <ng-select [(ngModel)]="selectedClub" [clearable]="false" (ngModelChange)="onCheckTotal()"
+                  class="w-100 mt-1 mb-1" [placeholder]="'SELECTBOX.TYPE' | translate">
+                  <ng-option [value]="false">{{'SELECTBOX.TYPE_SELECT.CLUB' | translate}}</ng-option>
+                  <ng-option [value]="true">{{'SELECTBOX.TYPE_SELECT.TOTAL' | translate }}</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-6 ps-1">
+                <ng-select [(ngModel)]="selectedType" [clearable]="false" (ngModelChange)="onChangeType()"
+                  class="w-100 mt-1 mb-1" [placeholder]="'SELECTBOX.TYPE' | translate">
+                  <ng-option [value]="'day'">{{'SELECTBOX.TYPE_SELECT.DAY' | translate }}</ng-option>
+                  <ng-option [value]="'month'">{{'SELECTBOX.TYPE_SELECT.MONTH' | translate}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chart -->
+    <div echarts [options]="lineChart" (chartDataZoom)="getValue($event)" id="demo-chart"></div>
+  </div>
+</div>

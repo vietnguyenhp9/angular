@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="row flex-between flex-wrap">
+        <div class="col-12 col-sm-4 col-md-5 col-lg-5 col-xl-5" *ngIf="isShowMemberOnline">
+          <div class="row">
+            <div class="col-7">
+              <h4 class="card-title text-uppercase text-overflow">{{ 'DATA.DASHBOARDS.CHART.NOW_IN_CLUB' | translate }}
+              </h4>
+            </div>
+            <div class="col-5">
+              <div class="chart-now-online flex">
+                <div class="intro-banner-vdo-play-btn pinkBg">
+                  <span class="ripple pinkBg"></span>
+                  <span class="ripple pinkBg"></span>
+                  <span class="ripple pinkBg"></span>
+                </div>
+                <h6 class="number-member-online font-size-14" [ngbTooltip]="memberOnline.toLocaleString() + ' Online'">
+                  {{
+                  memberOnline.toLocaleString() }} Online
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4 col-md-5 col-lg-5 col-xl-5" *ngIf="!isShowMemberOnline">
+          <h4 class="card-title text-uppercase text-overflow">{{ 'DATA.DASHBOARDS.CHART.NOW_IN_CLUB' | translate }}
+          </h4>
+        </div>
+        <div class="col-12 col-sm-8 col-md-7 col-lg-7 col-xl-7">
+          <div class="card-select flex-nowrap">
+            <div class="row">
+              <div class="col-6 pe-1">
+                <ng-select [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub()" class="w-100 mt-1 mb-1"
+                  [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+                  <ng-option *ngFor="let club of listClub" [value]="club.id">
+                    {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="col-6 ps-1">
+                <ng-select [(ngModel)]="selectedType" [clearable]="false" (ngModelChange)="onChangeType()"
+                  class="w-100 mt-1 mb-1" [placeholder]="'SELECTBOX.TYPE' | translate">
+                  <ng-option [value]="'day'">{{'SELECTBOX.TYPE_SELECT.DAY' | translate }}</ng-option>
+                  <ng-option [value]="'month'">{{'SELECTBOX.TYPE_SELECT.MONTH' | translate}}</ng-option>
+                  <ng-option [value]="'hour'">{{'SELECTBOX.TYPE_SELECT.HOUR' | translate}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chart -->
+    <div id="chart">
+      <apx-chart *ngIf="nowInClubChart" [series]="nowInClubChart.series" [chart]="nowInClubChart.chart"
+        [xaxis]="nowInClubChart.xaxis" [yaxis]="nowInClubChart.yaxis" [stroke]="nowInClubChart.stroke"
+        [tooltip]="nowInClubChart.tooltip" [dataLabels]="nowInClubChart.dataLabels" [markers]="nowInClubChart.markers"
+        [responsive]="nowInClubChart.responsive">
+      </apx-chart>
+    </div>
+  </div>
+</div>

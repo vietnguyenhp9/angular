@@ -1,1 +1,67 @@
-<p>login works!</p>
+<div class="account-pages bg-login-img">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card overflow-hidden">
+          <div class="bg-soft bg-primary">
+            <div class="row">
+              <div class="col-7">
+                <div class="text-primary p-4">
+                  <h5 class="text-primary">Welcome Back !</h5>
+                  <p>Sign in to continue to CRM</p>
+                </div>
+              </div>
+              <div class="col-5 align-self-start">
+                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div class="p-2 mt-3">
+              <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" name="username" placeholder="Username"
+                    formControlName="username" autofocus />
+                </div>
+                <div class="mb-3">
+                  <label for="password">Password</label>
+                  <div class="input-group auth-pass-inputgroup">
+                    <input [type]="showPass ? 'text' : 'password'" class="form-control" formControlName="password"
+                      placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+
+                    <button (click)="showPassword()" class="btn btn-light ms-0" type="button" id="password-addon"><i
+                        class="mdi mdi-eye-outline"></i></button>
+
+                  </div>
+                </div>
+
+                <!-- <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="remember-check">
+                  <label class="form-check-label" for="remember-check">Remember me</label>
+                </div> -->
+
+                <div class="mt-3 d-grid">
+                  <button class="btn btn-primary" type="submit">Log In</button>
+                </div>
+                <div class="mt-4 text-center">
+                  <a [routerLink]="URL.FORGOT_PASSWORD" class="text-muted"><i class="mdi mdi-lock mr-1 me-1"></i><span
+                      class="text-info">Forgot your
+                      password?</span></a>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+        <!-- <div class="mt-5 text-center">
+          <p>Don't have an account ? <a routerLink="#" class="fw-medium text-primary"> Signup now</a> </p>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- end container -->
+</div>
+<!-- end page -->

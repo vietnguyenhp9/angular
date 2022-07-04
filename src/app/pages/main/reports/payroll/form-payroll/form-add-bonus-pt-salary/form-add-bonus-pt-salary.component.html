@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title text-uppercase card-border-title">{{ 'FORM.ADD_BONUS_PT_SALARY' | translate }}</h4>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="form-group col-12 mt-2">
+          <label for=""><span class="font-size-16">{{"TABLE.BONUS_AMOUNT" | translate}}:</span></label>
+          <input type="number" class="form-control" formControlName="bonusAmount" [value]="ptInfo.bonusAmount" min="0">
+        </div>
+        <div class="form-group col-12 mt-2">
+          <label for=""><span class="font-size-16">{{"TABLE.DESCRIPTION" | translate}}</span></label>
+          <textarea rows="5" class="form-control" formControlName="reason" [value]="ptInfo.reason"></textarea>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

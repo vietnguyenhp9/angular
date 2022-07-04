@@ -1,0 +1,33 @@
+<div class="card mb-5">
+  <div class="card-body h-vh100">
+    <h4 class="card-title text-uppercase card-border-title">{{ 'DATA.EMPLOYEES.PT_CALENDAR_TITLE' | translate }}
+    </h4>
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-3 mt-2">
+          <div class=" col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mb-2" [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub($event)"
+              [clearable]="false" [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+              <ng-option *ngFor="let club of listClub" [value]="club.id">
+                {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class=" col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <ng-select class="mb-2" [(ngModel)]="selectedPT" (ngModelChange)="onChangePT($event)"
+              [placeholder]="'SELECTBOX.PT' | translate">
+              <ng-option *ngFor="let pt of listPT" [value]="pt.ptId">
+                {{ pt.fullName }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <!-- Calendar -->
+      <div class="col-12 h-vh100">
+        <full-calendar #calendar [options]="calendarOptions">
+        </full-calendar>
+      </div>
+    </div>
+  </div>
+</div>

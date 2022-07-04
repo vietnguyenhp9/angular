@@ -1,0 +1,120 @@
+<div class="row mt-0">
+  <div class="col-12">
+    <div class="row mb-3 mt-2">
+      <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+        <ng-select class="mt-3" [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub($event)"
+          [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+          <ng-option *ngFor="let club of listClub" [value]="club.key">
+            {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+        <ng-select class="mt-3" [(ngModel)]="selectedPaymentMethod" (ngModelChange)="onChangePaymentMethod($event)"
+          [placeholder]="'SELECTBOX.PAYMENT_METHOD' | translate">
+          <ng-option *ngFor="let paymentMethod of listPaymentMethod" [value]="paymentMethod.code">
+            {{ translate.currentLang === 'en' ? paymentMethod.nameEn : paymentMethod.nameVi }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+        <input class="form-control mt-3" type="text" [placeholder]="'PLACEHOLDER.ORDER_REF' | translate"
+          [(ngModel)]="orderRefSearch" (change)="onChangeOrder($event)" />
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 date-range-picker mt-3">
+        <input type="text" ngxDaterangepickerMd [timePicker]="true" [timePickerSeconds]="true" [timePicker24Hour]="true"
+          [(ngModel)]="selectedDateTime" class="form-control text-center"
+          [locale]="{ applyLabel: 'OK', format: 'DD/MM/YYYY HH:mm:ss' }" startKey="start" endKey="end"
+          [dateLimit]="dateLimit" (rangeClicked)="onFilterDateChange($event)"
+          (datesUpdated)="onFilterDateChange($event)" (choosedDate)="onFilterDateChange($event)" />
+      </div>
+    </div>
+    <div class="flex-between mb-3 mt-2 flex-wrap">
+      <div class="button-items">
+        <button (click)="exportExcel()" type="button"
+          class="btn btn-success text-uppercase mr-3 font-size-14 btn-shadow">
+          <i class="fas fa-file-excel mr-3"></i> {{"BUTTON.EXPORT"|translate}}
+        </button>
+        <button (click)="forceSync()" type="button" class="btn btn-success text-uppercase font-size-14 btn-shadow">
+          <i class="fas fa-undo-alt mr-3"></i> {{"BUTTON.FORCE_SYNC"|translate}}
+        </button>
+      </div>
+      <div class="align-self-center mt-2 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0">
+        <div class="text-primary text-uppercase font-size-16 font-w600 m-0">
+          {{"TABLE.TOTAL_REVENUE"|translate}}: <span class="text-danger">{{totalRevenue || '0' | currency: 'VND':'' }}
+            VND</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- table -->
+  <div class="col-12 h-vh100">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+        <thead>
+          <tr class="text-center text-overflow text-uppercase font-size-15">
+            <th scope="col">{{ 'TABLE.ACCOUNT_ID' | translate }}</th>
+            <th scope="col">{{ 'TABLE.NAME' | translate }}</th>
+            <th scope="col">{{ 'TABLE.PAYMENT_PLAN' | translate }}</th>
+            <th scope="col">{{ 'TABLE.PAYMENT_TOTAL' | translate }}</th>
+            <th scope="col">{{ 'TABLE.TRANSACTION_AMOUNT' | translate }}</th>
+            <th scope="col">{{ 'TABLE.PHONE' | translate }}</th>
+            <th scope="col">{{ 'TABLE.MEMBER_CONTRACT_ID' | translate }}</th>
+            <th scope="col">{{ 'TABLE.PAYMENT_TYPE' | translate }}</th>
+            <th scope="col">{{ 'TABLE.COUPON_CODE_ID' | translate }}</th>
+            <th scope="col">{{ 'TABLE.DISCOUNT' | translate }}</th>
+            <th scope="col">{{ 'TABLE.PURCHASE_DATE' | translate }}</th>
+            <th scope="col">{{ 'TABLE.ORDER_REF' | translate }}</th>
+            <th scope="col">{{ 'TABLE.PAYMENT_METHOD' | translate }}</th>
+            <th scope="col">{{ 'TABLE.SELLER_NAME' | translate }}</th>
+            <th scope="col">{{ 'TABLE.TRANSACTION_ID' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle h6 font-size-14" *ngFor="let item of listMemberTransaction">
+            <td class="text-center">{{ item.accountId }}</td>
+            <td class="text-left cursor-pointer" (click)="hyperLinkMemberRevenue(item.accountId)">{{ item.fullName }}
+            </td>
+            <td class="text-center">{{ item.paymentNameVi }}</td>
+            <td class="text-center">{{ item.paymentTotal || 0 | currency: 'VND':'' }}</td>
+            <td class="text-center">{{ item.transactionAmount || 0 | currency: 'VND':'' }}</td>
+            <td class="text-center">{{ item.phoneNumber }}</td>
+            <td class="text-center">{{ item.memberContractId }}</td>
+            <td class="text-center">{{ item.paymentType }}</td>
+            <td class="text-center">{{ item.couponCodeId }}</td>
+            <td class="text-center">{{ item.discount || 0 | currency: 'VND':'' }}</td>
+            <td class="text-center">
+              <p class="m-0">{{ item.createdAt | date: dayFormat }}</p>
+              <p class="m-0 pt-2">{{ item.createdAt | date: timeFormat }}</p>
+            </td>
+            <td class="text-center">{{ item.orderRef }}</td>
+            <td class="text-center">{{ item.paymentMethod }}</td>
+            <td class="text-center">{{ item.sellerName }}</td>
+            <td class="text-center">{{ item.transactionId }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center pagination-footer flex-wrap pagination-rounded">
+      <div class="paging-limit mt-3">
+        <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getMemberTransaction()">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="20">20</ng-option>
+          <ng-option [value]="50">50</ng-option>
+        </ng-select>
+      </div>
+      <div class="paging-nav h6">
+        <ngb-pagination class="mb-0 font-size-12" [maxSize]="5" [rotate]="true" [ellipses]="false"
+          [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+          (pageChange)="loadNext($event)">
+          <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+          <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+        </ngb-pagination>
+      </div>
+      <div class="paging-total mt-3">
+        <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span class="h6 fw-bold">{{
+          pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+      </div>
+    </div>
+  </div>
+</div>

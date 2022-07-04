@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.'+action+'_PRODUCT_CATEGORY' | translate
+      }}</h4>
+    <form [formGroup]="form">
+      <div class="row mb-3">
+        <div class="col-6">
+          <label class="text-uppercase" for=""> {{"TABLE.NAME_EN" |translate}}(*): </label>
+          <input class="form-control" formControlName="nameEn" maxlength="100" type="text" maxlength="100"
+            placeholder="Name" />
+        </div>
+        <div class="col-6">
+          <label class="text-uppercase"> {{"TABLE.NAME_VI" |translate}}(*): </label>
+          <input class="form-control" formControlName="nameVi" maxlength="100" type="text" maxlength="100"
+            placeholder="Name" />
+        </div>
+        <div class="col-12">
+          <label for="">{{"TABLE.ICON" | translate}}: </label><br>
+          <dropzone [config]="config" [message]="'FORM.CLICK_OR_DRAG_IMAGE_TO_UPLOAD' | translate"
+            (init)="dropzoneInit($event)" (thumbnail)="dropzoneThumbnailfile($event)"
+            (addedFiles)="dropzoneAddedfile($event)" (removedFile)="dropzoneRemoveFile()">
+          </dropzone>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button type="reset" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

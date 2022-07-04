@@ -1,0 +1,284 @@
+// dropdown
+.dropdown-toggle {
+  &:after {
+    display: none;
+  }
+}
+
+// flex
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-evenly {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+// Text
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.text-left {
+  text-align: left !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.text-disable {
+  color: $gray-600;
+}
+.card-border-title {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #b6b6b6;
+  @include Responsive(PHONE) {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+.card-border-1x {
+  border-bottom: 1px solid #ececec;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.font-w500 {
+  font-weight: 500;
+}
+.font-w600 {
+  font-weight: 600;
+}
+.font-w900 {
+  font-weight: 900;
+}
+// -------------NgxDateRangePicker-------------
+.date-range-picker {
+  .md-drppicker .calendar.right .calendar-table {
+    display: none !important;
+  }
+  .md-drppicker.ltr .calendar.right {
+    width: 100%;
+  }
+  .md-drppicker {
+    width: 320px !important;
+    margin-top: -10px !important;
+    font-size: 18px !important;
+    .btn {
+      padding: 0 30px;
+      margin: 10px 0 5px 0;
+      svg {
+        display: none;
+      }
+    }
+    .calendar {
+      max-width: unset !important;
+      td {
+        padding: 10px !important;
+      }
+    }
+    .buttons {
+      text-align: center;
+    }
+    .clear {
+      color: #fff !important;
+      background-color: #f46a6a !important;
+      border-color: #f46a6a !important;
+      margin-right: 2px;
+      cursor: pointer;
+      border-radius: 2px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 60%);
+      transition: background-color 0.4s;
+      height: auto;
+      text-transform: uppercase;
+      line-height: 36px;
+      border: none;
+    }
+  }
+}
+
+// -------------Paging-------------
+.pagination-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
+//-------------Class Member Table-------------
+.color {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 40%;
+  top: 42%;
+  border-radius: 20%;
+  border: 2px solid #fff;
+  box-shadow: rgb(0 0 0 / 35%) 0px 0px 10px;
+  &-green {
+    background: $green;
+  }
+  &-gray {
+    background: $gray-500;
+  }
+  &-blue {
+    background: $blue;
+  }
+  &-orange {
+    background: $orange;
+  }
+  &-red {
+    background: $red;
+  }
+  &-light-blue {
+    background: $yellow;
+  }
+  &-black {
+    background: $black;
+  }
+}
+.btn-default {
+  background-color: gray;
+}
+// ---------Badge---------
+.badge {
+  padding: 0.5em 1em !important;
+}
+
+// ---------Color Icon---------
+.icon-color {
+  &-green {
+    color: $green;
+  }
+  &-red {
+    color: $red;
+  }
+  &-orange {
+    color: $orange;
+  }
+  &-blue-sky {
+    color: $blue;
+  }
+}
+
+// -----------Center----------
+.abs-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+// ------------Others-----------
+.total-border {
+  height: auto;
+  border: 1px solid #b9b9b9;
+  border-radius: 5px;
+  padding: 20px 10px 19px 10px;
+}
+
+//--------------Button----------
+.button-sort {
+  border: none;
+  background-color: transparent;
+}
+
+.enableSort .fas {
+  color: black !important;
+}
+
+.disableSort .fas {
+  color: gray !important;
+}
+
+.btn-add-member-contract {
+  @include Responsive(PHONE) {
+    max-width: 170px;
+  }
+}
+
+// ------------AvatarColor------------
+.contract {
+  box-shadow: rgb(0 0 0 / 39%) 0px 3px 8px;
+  border: 8px solid;
+  &.no-contract {
+    border-color: $gray-600;
+  }
+  &.current-contract {
+    border-color: $green;
+  }
+  &.frozen-contract {
+    border-color: $blue;
+  }
+  &.future-contract {
+    border-color: $cyan;
+  }
+  &.past-contract {
+    border-color: $red;
+  }
+  &.payment-contract {
+    border-color: $orange;
+  }
+}
+
+// ------------FormControl------------
+.form-control {
+  font-weight: 500;
+  font-size: 14px !important;
+}
+textarea {
+  resize: none;
+}
+textarea:focus-visible {
+  outline: none;
+}
+
+// ------------Ng-SelectBox------------
+.ng-placeholder {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ng-select.ng-select-single .ng-select-container {
+  height: calc(1.5em + 0.846rem + 2px) !important;
+}
+
+// Accordion
+.ng-star-inserted .btn-link:hover,
+.ng-star-inserted .btn-link:focus,
+.ng-star-inserted .btn-link {
+  text-decoration: none !important;
+  box-shadow: unset !important;
+  width: 100%;
+  text-align: left;
+  opacity: 1;
+}
+
+// Sidebar
+.simplebar-content-wrapper {
+  background-color: $primary;
+}
+
+// Modal
+.modal {
+  // z-index: 99999 !important;
+}

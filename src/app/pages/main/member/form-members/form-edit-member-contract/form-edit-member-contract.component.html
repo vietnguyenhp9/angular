@@ -1,0 +1,99 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.EDIT_MEMBER_CONTRACT' | translate }}</h4>
+    <form [formGroup]="form" *ngIf="form">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.SIGN_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control mb-2 mb-sm-2 mb-md-2 mb-lg-0 mb-xl-0"
+                  formControlName="signDate" />
+              </div>
+              <div class="col-6 ps-1">
+                <input class="form-control" type="time" formControlName="signTime" placeholder="HH:mm:ss" max="17:00:00"
+                  step="2" required />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.CREATED_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control mb-2 mb-sm-2 mb-md-2 mb-lg-0 mb-xl-0"
+                  formControlName="createDate" />
+              </div>
+              <div class="col-6 ps-1">
+                <input class="form-control" type="time" formControlName="createTime" placeholder="HH:mm:ss"
+                  max="17:00:00" step="2" required />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.CLUB' | translate}}</label>
+            <ng-select formControlName="clubId" (change)="onChangeClub($event)"
+              [placeholder]="'SELECTBOX.CLUB' | translate" [clearable]="false">
+              <ng-option *ngFor="let club of listClub" [value]="club.id">
+                {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.START_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control mb-2 mb-sm-2 mb-md-2 mb-lg-0 mb-xl-0"
+                  formControlName="startDate" />
+              </div>
+              <div class="col-6 ps-1">
+                <input class="form-control" type="time" formControlName="startTime" placeholder="HH:mm:ss"
+                  max="17:00:00" step="2" required />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.END_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control mb-2 mb-sm-2 mb-md-2 mb-lg-0 mb-xl-0"
+                  formControlName="endDate" />
+              </div>
+              <div class="col-6 ps-1">
+                <input class="form-control" type="time" formControlName="endTime" placeholder="HH:mm:ss" max="17:00:00"
+                  step="2" required />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.STATUS' | translate}}</label>
+            <ng-select [items]="listStatus" formControlName="status" [placeholder]="'SELECTBOX.STATUS' | translate" [clearable]="false">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">{{ 'TABLE.PAYMENT_PLAN' | translate}}</label>
+        <ng-select formControlName="paymentPlanId" [placeholder]="'SELECTBOX.PAYMENT_PLAN' | translate"
+          [clearable]="false">
+          <ng-option *ngFor="let payment of listPaymentPlan" [value]="payment.id">
+            {{ translate.currentLang === 'en' ? payment.nameEn : payment.nameVi }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="editMemberContract()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

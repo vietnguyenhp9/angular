@@ -1,0 +1,38 @@
+//
+// _card.scss
+//
+
+.card {
+  margin-bottom: $grid-gutter-width;
+  box-shadow: $box-shadow;
+}
+
+.card-drop {
+  color: $body-color;
+}
+
+.card-title {
+  font-size: 15px;
+  margin: 0 0 7px 0;
+  font-weight: $font-weight-semibold;
+}
+
+.card-title-desc {
+  color: $card-title-desc;
+  margin-bottom: 24px;
+}
+
+.card-footer {
+  border-top: 0.5px solid $gray-200;
+  background-color: transparent !important;
+}
+
+.card-order-product-overflow-y{
+  max-height: 300px;
+  overflow-y:scroll;
+  
+}
+.card .card-order-product-overflow-y{
+  position: static !important;
+  min-height: 250px;
+}

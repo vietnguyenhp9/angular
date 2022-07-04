@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="row flex-between flex-wrap">
+        <div class="col-12 col-sm-7 col-md-8 col-lg-8 col-xl-8  ">
+          <h4 class="card-title text-uppercase text-overflow">{{ 'DATA.DASHBOARDS.CHART.ACTIVE_MEMBER' | translate }}
+          </h4>
+        </div>
+        <div class="col-12 col-sm-5 col-md-4 col-lg-4 col-xl-4">
+          <div class="card-select flex-nowrap">
+            <div class="row">
+              <div class="col-6 pe-1"></div>
+              <div class="col-12 ps-1">
+                <ng-select [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub()" class="w-100 mt-1 mb-1"
+                  [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+                  <ng-option *ngFor="let club of listClub" [value]="club.id">
+                    {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chart -->
+    <div id="chart">
+      <highcharts-chart *ngIf="activeMemberChart" [Highcharts]="Highcharts" [options]="activeMemberChart"
+        [(update)]="updateFlag" style="width: 100%; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-body h-vh100">
+    <div class="card-border-title flex-between pb-1 pt-0 mt-0 mt-5-">
+      <h4 class="card-title text-uppercase">{{ 'DATA.INVENTORY.LIST_WAREHOUSE_INVENTORY' | translate }}</h4>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-3 mt-2">
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="input-group form-search mt-2">
+              <input class="form-control form-search-input" [placeholder]="'HEADER.SEARCH' | translate"
+                [(ngModel)]="searchValue" (keyup.enter)="onSearch()" />
+              <div>
+                <div class="btn-search-primary" (click)="onSearch()"><i class="fas fa-search"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5 col-12">
+            <ng-select class=" mt-2" [(ngModel)]="selectedWarehouse" (ngModelChange)="onChangeWarehouse($event)"
+              [placeholder]="'SELECTBOX.WAREHOUSE' | translate" [clearable]="false">
+              <ng-option *ngFor="let warehouse of listWarehouse" [value]="warehouse.id">
+                {{ warehouse.name }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <!-- Table -->
+      <div class="col-12 h-vh100">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+              <tr class="text-center text-overflow text-uppercase font-size-15">
+                <th scope="col">{{ 'TABLE.PRODUCT' | translate }}</th>
+                <th scope="col">{{ 'TABLE.SELLING_PRICE' | translate }}</th>
+                <th scope="col">{{ 'TABLE.QUANTITY' | translate }}</th>
+                <th scope="col">{{ 'TABLE.UNIT' | translate }}</th>
+                <th scope="col">{{ 'TABLE.CATEGORY' | translate }}</th>
+                <th scope="col">{{ 'TABLE.CREATED_BY' | translate }}</th>
+                <th scope="col">{{ 'TABLE.CREATED_AT' | translate }}</th>
+                <th scope="col">{{ 'TABLE.CLUB' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="align-middle h6 font-size-14" *ngFor="let item of listWarehouseInventory">
+                <td class=" text-center">
+                  {{ (translate.currentLang === 'en' ? item.nameEn : item.nameVi) || '-' }}
+                </td>
+                <td class="text-center"> {{ item.sellingPrice }} </td>
+                <td class="text-center"> {{ item.quantity }} </td>
+                <td class="text-center"> {{ item.unit }} </td>
+                <td class="text-center">
+                  {{ (translate.currentLang === 'en' ? item.productNameEn : item.productNameVi) || '-' }}
+                </td>
+                <td class="text-center"> {{ item.createdBy }} </td>
+                <td class="text-center"> {{ item.createdAt | date: dayFormat}} </td>
+                <td class="text-center">
+                  {{ (translate.currentLang === 'en' ? item.clubNameEn : item.clubNameEn) || '-' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

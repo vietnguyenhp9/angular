@@ -1,0 +1,157 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <ul ngbNav #customNav="ngbNav" [activeId]="1"
+        class="nav-tabs nav-tabs-custom nav-justified w-300 text-uppercase font-size-15 align-items-center">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink (click)="loadNext(1, type['MONTH'])">
+            <span class="d-block d-sm-none"><i class="far fa-calendar-alt"></i></span>
+            <span class="d-none d-sm-block">{{ 'TAB_MENU.MONTH' | translate }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <ng-template [ngTemplateOutlet]="Month"></ng-template>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink (click)="loadNext(1, type['QUARTER'])">
+            <span class="d-block d-sm-none"><i class="far fa-calendar-alt"></i></span>
+            <span class="d-none d-sm-block">{{ 'TAB_MENU.QUARTER' | translate }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <ng-template [ngTemplateOutlet]="Quarter"></ng-template>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="customNav"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab Content -->
+<!-- Card Content Revenue By Month -->
+<ng-template #Month>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="row mb-3 mt-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 mt-3 text-center flex ">
+          <div class="w-100 text-center">
+            <ng-select [items]="listMonths" [clearable]="false" [(ngModel)]="month"
+              [placeholder]="'SELECTBOX.TYPE_SELECT.MONTH' | translate" (ngModelChange)="onChangeMonth($event)"
+              class="me-2">
+            </ng-select>
+          </div>
+          <div class="text-center w-100">
+            <ng-select [items]="listYears" [clearable]="false" [(ngModel)]="year"
+              [placeholder]="'SELECTBOX.TYPE_SELECT.YEAR' | translate" (ngModelChange)="onChangeYear($event)">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 ">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+          <thead>
+            <tr class="text-center text-overflow text-uppercase font-size-15">
+              <th scope="col">{{ 'TABLE.GROUP' | translate }}</th>
+              <th scope="col">{{ 'TABLE.REVENUE' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center align-middle h6 font-size-14" *ngFor="let item of listPtRevenueByMonth">
+              <td>{{ item.groupName }}</td>
+              <td>{{ item.groupRevenue || 0 | currency: 'VND':'' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class=" text-center pagination-footer flex-wrap pagination-rounded">
+        <div class="paging-limit mt-3">
+          <ng-select [clearable]="false" [(ngModel)]="pageSizeMonth" (change)="getPtRevenueByMonth()">
+            <ng-option [value]="10">10</ng-option>
+            <ng-option [value]="20">20</ng-option>
+            <ng-option [value]="50">50</ng-option>
+          </ng-select>
+        </div>
+        <div class="paging-nav h6">
+          <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSizeMonth" [collectionSize]="totalMonth"
+            (pageChange)="loadNext($event, type['MONTH'])">
+            <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+            <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+          </ngb-pagination>
+        </div>
+        <div class="paging-total mt-3">
+          <span class="h6 fw-bold">{{ totalMonth || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span
+            class="h6 fw-bold">{{
+            pagesMonth || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!----------------------------------- //// --------------------------------------->
+<!-- Tab Content -->
+<!-- Card Content Revenue By Quarter -->
+<ng-template #Quarter>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="row mb-3 mt-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 mt-3 text-center flex ">
+          <div class="w-100 text-center">
+            <ng-select [items]="listQuaters" [clearable]="false" [(ngModel)]="quarter"
+              [placeholder]="'SELECTBOX.TYPE_SELECT.MONTH' | translate" (ngModelChange)="onChangeQuarter($event)"
+              class="me-2">
+            </ng-select>
+          </div>
+          <div class="text-center w-100">
+            <ng-select [items]="listYears" [clearable]="false" [(ngModel)]="yearQuarter"
+              [placeholder]="'SELECTBOX.TYPE_SELECT.YEAR' | translate" (ngModelChange)="onChangeYearQuarter($event)">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+          <thead>
+            <tr class="text-center text-overflow text-uppercase font-size-15">
+              <th scope="col">{{ 'TABLE.GROUP' | translate }}</th>
+              <th scope="col">{{ 'TABLE.REVENUE' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center align-middle h6 font-size-14" *ngFor="let item of listPtRevenueByQuarter">
+              <td>{{ item.groupName }}</td>
+              <td>{{ item.groupRevenue | currency: 'VND':''}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class=" text-center pagination-footer flex-wrap pagination-rounded">
+        <div class="paging-limit mt-3">
+          <ng-select [clearable]="false" [(ngModel)]="pageSizeQuarter" (change)="getPtRevenueByQuarter()">
+            <ng-option [value]="10">10</ng-option>
+            <ng-option [value]="20">20</ng-option>
+            <ng-option [value]="50">50</ng-option>
+          </ng-select>
+        </div>
+        <div class="paging-nav h6">
+          <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSizeQuarter" [collectionSize]="totalQuarter"
+            (pageChange)="loadNext($event, type['QUARTER'])">
+            <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+            <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+          </ngb-pagination>
+        </div>
+        <div class="paging-total mt-3">
+          <span class="h6 fw-bold">{{ totalQuarter || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span
+            class="h6 fw-bold">{{
+            pagesQuarter || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

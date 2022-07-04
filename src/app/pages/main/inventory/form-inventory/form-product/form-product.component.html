@@ -1,0 +1,72 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.'+ action +'_PRODUCT' | translate }}
+    </h4>
+    <form [formGroup]="form">
+      <div class="row mb-3">
+        <div class="col-6 mt-3">
+          <label class="text-uppercase" for=""> {{"TABLE.NAME_EN" |translate}}(*): </label>
+          <input class="form-control" formControlName="nameEn" maxlength="100" type="text" maxlength="100"
+            [placeholder]="'PLACEHOLDER.NAME_EN'|translate" />
+        </div>
+        <div class="col-6 mt-3">
+          <label class="text-uppercase"> {{"TABLE.NAME_VI" |translate}}(*): </label>
+          <input class="form-control" formControlName="nameVi" maxlength="100" type="text" maxlength="100"
+            [placeholder]="'PLACEHOLDER.NAME_VI'|translate" />
+        </div>
+
+        <!-- Category -->
+        <div class="col-6 mt-3">
+          <label class="text-uppercase">{{ "TABLE.PRODUCT_CATEGORY" |translate}}</label>
+          <ng-select formControlName="categoryId" [placeholder]="'SELECTBOX.PRODUCT_CATEGORY' | translate">
+            <ng-option *ngFor="let category of listProductCategory" [value]="category.id">
+              {{ translate.currentLang === 'en' ? category.nameEn : category.nameVi }}
+            </ng-option>
+          </ng-select>
+        </div>
+        <!-- unit -->
+        <div class="col-6 mt-3">
+          <label class="text-uppercase"> {{"TABLE.UNIT" |translate}} (*): </label>
+          <input class="form-control" formControlName="unit" maxlength="100" type="text" maxlength="100"
+            [placeholder]="'PLACEHOLDER.UNIT'|translate" />
+        </div>
+        <!-- selling price -->
+        <div class="col-6 mt-3">
+          <label class="text-uppercase"> {{"TABLE.SELLING_PRICE" |translate}} (*): </label>
+          <input class="form-control" formControlName="sellingPrice" type="number"
+            [placeholder]="'PLACEHOLDER.SELLING_PRICE'|translate" />
+        </div>
+        <!-- Select clubs -->
+        <div class="col-6 mt-3">
+          <label class="text-uppercase me-3">{{ "TABLE.CLUB" |translate}}</label> <input class="me-2"
+            formControlName="isAllClub" type="checkbox" (click)="selectAllClub($event)" />
+          <small>{{'BUTTON.SELECTED_ALL'|translate}}</small>
+          <ng-select *ngIf="show" class="mt-1" [multiple]=true formControlName="clubIds"
+            [placeholder]="'SELECTBOX.CLUB' | translate">
+            <ng-option *ngFor="let club of listClub" [value]="club.id">
+              {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="col-12">
+          <label class="text-uppercase">{{"TABLE.ICON" | translate}}: </label><br>
+          <dropzone [config]="config" [message]="'FORM.CLICK_OR_DRAG_IMAGE_TO_UPLOAD' | translate"
+            (init)="dropzoneInit($event)" (thumbnail)="dropzoneThumbnailfile($event)"
+            (addedFiles)="dropzoneAddedfile($event)" (removedFile)="dropzoneRemoveFile()">
+          </dropzone>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button type="reset" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

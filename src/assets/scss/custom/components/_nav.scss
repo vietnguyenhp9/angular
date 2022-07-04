@@ -1,0 +1,75 @@
+//
+// _nav.scss
+//
+
+.nav-tabs,
+.nav-pills {
+  > li {
+    > a {
+      color: $gray-700;
+      font-weight: $fw-medium;
+    }
+  }
+}
+
+.nav-pills {
+  > a {
+    color: $gray-700;
+    font-weight: $fw-medium;
+  }
+}
+
+.nav-tabs-custom {
+  border-bottom: 2px solid $gray-300;
+
+  .nav-item {
+    position: relative;
+    color: $dark;
+    .nav-link {
+      border: none;
+
+      &::after {
+        content: "";
+        background: $primary;
+        height: 2px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: -1px;
+        transition: all 250ms ease 0s;
+        transform: scale(0);
+      }
+
+      &.active {
+        color: $primary;
+        &:after {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+
+// vertical nav
+
+.vertical-nav {
+  .nav {
+    .nav-link {
+      padding: 24px 16px;
+      text-align: center;
+      margin-bottom: 8px;
+      .nav-icon {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.nav-justified .nav-item {
+  max-width: 250px;
+}

@@ -1,0 +1,73 @@
+<!-- Scrollable modal -->
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.CREATE_ORDER' | translate }}</h4>
+    <form [formGroup]="form">
+      <div class="row mb-3">
+        <!-- Select warehouse-->
+        <div class="col-8">
+          <div class="mb-3">
+            <label class="form-label text-uppercase">{{ 'TABLE.WAREHOUSE' | translate }}</label>
+            <ng-select class="w-100" formControlName="warehouseId" [placeholder]="'SELECTBOX.WAREHOUSE' | translate"
+              [clearable]="false" (ngModelChange)="onChangeWarehouse($event)">
+              <ng-option *ngFor="let warehouse of listWarehouse" [value]="warehouse.id">
+                {{ warehouse.name }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <!-- Select product -->
+        <div class="col-12 card-order-product-overflow-y">
+          <label class="form-label me-1 text-uppercase">{{'TABLE.PRODUCT'|translate}}</label>
+          <div formArrayName="products" *ngFor="let item of form.get('products')['controls']; let i = index">
+            <div class="row mt-2" [formGroupName]="i">
+              <div class="col-8">
+                <ng-select formControlName="productId" [placeholder]="'SELECTBOX.PRODUCT' | translate"
+                  [clearable]="false">
+                  <ng-option *ngFor="let product of listProduct" [value]="product.id">
+                    {{ translate.currentLang === 'en' ? product.nameEn : product.nameVi }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="col-4">
+                <div class="flex">
+                  <input type="number" class="form-control w-75 me-1" formControlName="quantity">
+                  <button class="btn btn-danger ms-1" (click)="removeProduct(i)">
+                    <b><i class="fas fa-times"></i></b>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-3">
+          <div class="col-6">
+            <button class="btn btn-primary" (click)="addMoreProduct()">
+              <i class="fas fa-plus"></i> {{"BUTTON.ADD_MORE"|translate}}
+            </button>
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="col-12 mt-3">
+          <label for="">{{"TABLE.DESCRIPTION"|translate}}</label>
+          <textarea type="text" class="form-control" formControlName="note"
+            placeholder="{{'PLACEHOLDER.DESCRIPTION'|translate}}"></textarea>
+        </div>
+      </div>
+      <div class="col-12">
+        {{'TABLE.CREATED_AT'|translate}}:{{ createAt |date: dayFormat}}
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+        <button type="reset" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

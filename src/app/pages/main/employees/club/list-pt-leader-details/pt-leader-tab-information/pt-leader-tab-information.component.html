@@ -1,0 +1,117 @@
+<div class="row mt-4">
+  <!-- PT Money -->
+  <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card overflow-hidden">
+          <div class="card-body p-0 p-lg-2">
+            <div class="row">
+              <div class="card-contract-status">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-percentage icon-color-orange"></i>
+                      {{ 'USER_INFO.PERCENTAGE' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ percentagePt }} %
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-percentage icon-color-orange"></i>
+                      {{ 'USER_INFO.PERCENTAGE_NEXT' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ percentagePtNext }} %
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-money-check-alt icon-color-orange"></i>
+                      {{ 'USER_INFO.TOTAL_PAYROLL' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">{{ totalPayroll | currency:
+                      'VND':'' }} VND</h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-dollar-sign icon-color-orange"></i>
+                      {{ 'USER_INFO.REVENUE' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">{{ revenue | currency:
+                      'VND':'' }} VND</h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fas fa-gift icon-color-orange"></i>
+                      {{ 'USER_INFO.BONUS' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">{{ bonusPayroll | currency:
+                      'VND':'' }} VND</h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Group -->
+      <div class="col-xl-12">
+        <div class="card overflow-hidden">
+          <div class="card-body p-0 p-lg-2">
+            <div class="row">
+              <div class="card-payment">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-users icon-color-orange"></i>
+                      {{ 'USER_INFO.CLUB_NAME' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ translate.currentLang === 'en' ? userMemberInfo?.clubNameEn : userMemberInfo?.clubNameVi || '-' }}
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-layer-group icon-color-orange"></i>
+                      {{ 'USER_INFO.GROUP_ID' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ groupId || '-' }}
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-dollar-sign icon-color-orange"></i>
+                      {{ 'USER_INFO.REVENUE' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ revenueGroup | currency: 'VND':'' }} VND
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20 fas fa-gift icon-color-orange"></i>
+                      {{ 'USER_INFO.BONUS' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ bonusGroup | currency: 'VND':'' }} VND
+                    </h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- UserInfo -->
+  <div class="col-xl-8 col-lg-12 col-md-12">
+    <app-user-info-details [userMemberInfo]="userMemberInfo" >
+      (toggleClubsHide)="toggleClubs = $event"
+      (toggle)="openSelectBox=$event"
+    </app-user-info-details>
+  </div>
+</div>

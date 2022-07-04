@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title text-center" style="line-height: 25px;">{{ title |
+      translate }}
+    </h4>
+    <!-- Footer -->
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+      <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+        (click)="onCancel()">
+        {{ 'BUTTON.CANCEL' | translate}}
+      </button>
+      <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+        (click)="onSubmit()">
+        {{ 'BUTTON.SUBMIT' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,144 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <ul ngbNav #customNav="ngbNav" [activeId]="1"
+        class="nav-tabs nav-tabs-custom nav-justified w-550 text-uppercase font-size-15 align-items-center">
+        <li [ngbNavItem]="1">
+          <!--<a ngbNavLink (click)="resetPages()">  -->
+          <a ngbNavLink>
+            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+            <span class="d-none d-sm-block">{{ 'TAB_MENU.VISIT_IN_CLUB' | translate }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <ng-template [ngTemplateOutlet]="VisitInClub"></ng-template>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <!--<a ngbNavLink (click)="resetPages()">  -->
+          <a ngbNavLink>
+            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+            <span class="d-none d-sm-block">{{ 'TAB_MENU.CLUB_ZONE_SCAN' | translate }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <ng-template [ngTemplateOutlet]="ClubZoneScan"></ng-template>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="customNav"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Tab Content -->
+<!-- Content VisitInClub -->
+<ng-template #VisitInClub>
+  <div class="col-12 h-vh100">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+        <thead>
+          <tr class="text-center text-overflow text-uppercase font-size-15">
+            <th scope="col">{{ 'TABLE.DATE' | translate }}</th>
+            <th scope="col">{{ 'TABLE.DAY' | translate }}</th>
+            <th scope="col">{{ 'TABLE.HOUR' | translate }}</th>
+            <th scope="col">{{ 'TABLE.DURATION' | translate }}</th>
+            <th scope="col">{{ 'TABLE.CLUB' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle h6 font-size-14" *ngFor="let item of listAccessStaffLog">
+            <td class="text-center">
+              {{ item.dateIn | date: timeFormat.DD_MM_YY }}
+            </td>
+            <td class="text-center text-capitalize">{{ item.dateIn | momentFormat: timeFormat.DDDD }}</td>
+            <td class="text-center">{{ item.dateIn | date: timeFormat.HH_MM_SS }}</td>
+            <td class="text-center"> {{ item.duration }}</td>
+            <td class="text-center">
+              {{ translate.currentLang === 'en' ? item.clubNameEn : item.clubNameVi }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center pagination-footer flex-wrap pagination-rounded">
+      <div class="paging-limit mt-3">
+        <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getListStaffAccessLog()">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="20">20</ng-option>
+          <ng-option [value]="50">50</ng-option>
+        </ng-select>
+      </div>
+      <div class="paging-nav h6">
+        <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+          [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+          (pageChange)="loadNext($event)">
+          <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+          <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+        </ngb-pagination>
+      </div>
+      <div class="paging-total mt-3">
+        <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span class="h6 fw-bold">{{
+          pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<!-- ----------------------------------------------------------------//////---------------------------------------------------------------- -->
+
+
+
+<!-- Tab Content -->
+<!-- Content ClubZoneScan -->
+<ng-template #ClubZoneScan>
+  <div class="col-12 h-vh100">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+        <thead>
+          <tr class="text-center text-overflow text-uppercase font-size-15">
+            <th scope="col">{{ 'TABLE.CLUB' | translate }}</th>
+            <th scope="col">{{ 'TABLE.ZONE' | translate }}</th>
+            <th scope="col">{{ 'TABLE.TIME_ENTER' | translate }}</th>
+            <th scope="col">{{ 'TABLE.TIME_EXIT' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle h6 font-size-14" *ngFor="let item of listAccessStaffLog">
+            <td class="text-center">
+              {{ translate.currentLang === 'en' ? item.clubNameEn : item.clubNameVi }}
+            </td>
+            <td class="text-center">{{ item.zone }}</td>
+            <td class=" text-center">
+              {{ item.dateIn | date: timeFormat.DD_MM_YY }} | {{ item.dateIn | date: timeFormat.HH_MM_SS }}
+            </td>
+            <td class=" text-center">
+              {{ item.dateOut | date: timeFormat.DD_MM_YY }} | {{ item.dateOut | date: timeFormat.HH_MM_SS }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center pagination-footer flex-wrap pagination-rounded">
+      <div class="paging-limit mt-3">
+        <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getListStaffAccessLog()">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="20">20</ng-option>
+          <ng-option [value]="50">50</ng-option>
+        </ng-select>
+      </div>
+      <div class="paging-nav h6">
+        <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+          [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+          (pageChange)="loadNext($event)">
+          <ng-template ngbPaginationPrevious>{{ 'BUTTON.PREV' | translate }}</ng-template>
+          <ng-template ngbPaginationNext>{{ 'BUTTON.NEXT' | translate }}</ng-template>
+        </ngb-pagination>
+      </div>
+      <div class="paging-total mt-3">
+        <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span class="h6 fw-bold">{{
+          pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+      </div>
+    </div>
+  </div>
+</ng-template>

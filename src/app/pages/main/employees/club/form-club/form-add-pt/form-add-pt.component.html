@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-1 text-uppercase card-border-title">{{ title | translate }}</h4>
+    <div class="card-btn-close">
+      <i (click)="onClose()" class="fas fa-window-close"></i>
+    </div>
+    <!-- Footer -->
+    <div class="list-pt-content-add" *ngIf="listPT">
+      <ul class="ps-0 list-group" *ngFor="let pt of listPT">
+        <li class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded flex-between"
+          (click)="onSubmit(type === 'pt' ? pt.ptId : pt.leaderId)">
+          <div>
+            <p class="m-0">{{ type === 'pt' ? pt.firstName + ' ' + pt.lastName : pt.fullName }}</p>
+            <p class="m-0 pt-0 font-size-12 text-disable">{{ pt.phone }}</p>
+          </div>
+          <i class="fas fa-plus-square font-size-18"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

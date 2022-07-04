@@ -1,0 +1,79 @@
+<div class="card">
+  <div class="card-body h-vh100">
+    <h4 class="card-title mb-4 text-uppercase card-border-title cursor-pointer" routerLink=".."><i
+        class="fas fa-arrow-circle-left mr-10"></i>{{
+      'GO_BACK.TITLE' | translate }}</h4>
+    <!-- Card User -->
+    <div class="row">
+      <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card overflow-hidden">
+          <div class="card-body pt-0">
+            <div class="row flex justify-content-center">
+              <div class="col-4 mt-2 flex flex-column align-items-center">
+                <div class="profile-user-wid mt-3 text-center">
+                  <div class="avatar-img avatar-default" (click)="openImage(avatarUser,'ava')"
+                    style="background:url('{{ avatarUser }}')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="pt-4">
+                  <ul class="list-unstyled mb-0 font-w500">
+                    <li class="d-flex justify-content-between align-items-center card-border-1x">
+                      <h5 class="font-size-15 text-capitalize">{{ userMemberInfo?.firstName + ' ' +
+                        userMemberInfo?.lastName }}
+                        <span>[{{userId}}]</span>
+                      </h5>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center card-border-1x mt-3 mb-3">
+                      <p class="mb-0">{{ 'USER_INFO.REGISTRATION' | translate }}: </p>
+                      <span>{{ userMemberInfo?.createdAt | date: formatDate }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center card-border-1x mt-3 mb-3">
+                      <p class="mb-0">{{ 'USER_INFO.PHONE' | translate }}: </p>
+                      <span>{{ userMemberInfo?.phoneNumber }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center card-border-1x mt-3 mb-3">
+                      <p class="mb-0">{{ 'USER_INFO.EMAIL' | translate }}: </p>
+                      <span class="text-overflow">{{ userMemberInfo?.email }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 col-sm-6">
+        <div class="card overflow-hidden">
+          <div class="indentity-card" (click)="openImage(userIdentityCard,'idCard')"
+            style="background-image: url('{{ userIdentityCard }}');"></div>
+        </div>
+      </div>
+
+      <!-- Justified Tabs -->
+      <ul ngbNav #justifiednav="ngbNav" [activeId]="1" class="nav-pills nav-justified">
+        <li *ngFor="let link of tabNames ; let i = index" [ngbNavItem]="link.id">
+          <a ngbNavLink class="pt-2 pb-2 m-1" [ngbTooltip]="link.name | translate">
+            <span class="d-block d-sm-none"><i [ngClass]="tabIcons[i]"></i></span>
+            <span class="d-none d-sm-block font-size-15 text-uppercase text-overflow">{{ link.name |
+              translate }}</span>
+          </a>
+          <ng-template ngbNavContent>
+            <ng-template *ngTemplateOutlet="linkTemplate; context: { template: link.template }"></ng-template>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="justifiednav"></div>
+    </div>
+  </div>
+</div>
+<!-- Tab Content -->
+<ng-template #linkTemplate let-template='template'>
+  <app-pt-leader-tab-information [userId]="userId" (getPtLeaderInfoInfoFromChild)="getPtLeaderInfoInfoFromChild($event)"
+    *ngIf="template==='information'"></app-pt-leader-tab-information>
+  <app-pt-leader-tab-revenue *ngIf="template==='revenue'" [userId]="userId"></app-pt-leader-tab-revenue>
+  <app-pt-leader-tab-bonus *ngIf="template==='bonus'" [userId]="userId"></app-pt-leader-tab-bonus>
+  <app-pt-leader-tab-group-history *ngIf="template==='ptleadergrouphistory'" [userId]="userId">
+  </app-pt-leader-tab-group-history>
+</ng-template>

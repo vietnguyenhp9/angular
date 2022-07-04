@@ -1,0 +1,158 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.ADD_NEW_' + accountType | translate }}</h4>
+    <form [formGroup]="form">
+      <div class="row">
+        <!-- CLub -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.CLUB' | translate }}</label>
+            <ng-select formControlName="clubId" [placeholder]="'SELECTBOX.CLUB' | translate" [clearable]="false">
+              <ng-option *ngFor="let club of listClub" [value]="club.id">
+                {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.EMAIL' | translate}}</label>
+            <input type="email" class="form-control" formControlName="email"
+              [placeholder]="'PLACEHOLDER.EMAIL'|translate">
+          </div>
+        </div>
+        <!-- First Name -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.FIRST_NAME' |translate}}</label>
+            <input type="text" class="form-control" formControlName="firstName"
+              [placeholder]="'PLACEHOLDER.FIRST_NAME'|translate">
+          </div>
+        </div>
+        <!-- Last Name -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.LAST_NAME' |translate}}</label>
+            <input type="text" class="form-control" formControlName="lastName"
+              [placeholder]="'PLACEHOLDER.LAST_NAME'|translate">
+          </div>
+        </div>
+        <!-- Birth day-->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.BIRTHDAY' |translate}}</label>
+            <input type="date" class="form-control" formControlName="birthday">
+          </div>
+        </div>
+        <!-- ID No/Passport No -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.ID_NO'|translate}} / {{'TABLE.PASS_PORT' |translate}}</label>
+            <input type="number" class="form-control" formControlName="identityNumber"
+              [placeholder]="'PLACEHOLDER.ID_NO'|translate">
+          </div>
+        </div>
+        <!-- Phone number  -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.PHONE' |translate}}</label>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <ng-select [items]="listAreaCodeNumber" [clearable]="false" [(ngModel)]="defaultAreaCode"
+                  [ngModelOptions]="{standalone: true}">
+                </ng-select>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <input type="number" class="form-control" formControlName="phoneNumber"
+                  [placeholder]="'PLACEHOLDER.PHONE'|translate">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Gender -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.GENDER' | translate }}</label>
+            <div class="flex flex-nowrap">
+              <div class="mt-2 mr-10" *ngFor="let gender of listGender">
+                <label>
+                  <div class="row ">
+                    <div class="col-1">
+                      <input class="form-check-input mr-10" type="radio" formControlName="gender"
+                        [value]="gender.value" />
+                    </div>
+                    <div class="col">
+                      <span class="form-check-label">{{ gender.name || translate }}</span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Access Rules -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.ACCESS_RULES' |translate}}</label>
+            <ng-select [items]="listAccessRule" bindValue="id" bindLabel="nameEn" formControlName="accessRuleId"
+              [placeholder]="'SELECTBOX.ACCESS_RULES'|translate">
+            </ng-select>
+          </div>
+        </div>
+        <!-- Roles -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.ROLES' |translate}}</label>
+            <ng-select [items]="listRole" bindValue="id" bindLabel="roleName" formControlName="roleId"
+              [clearable]="false" [readonly]="true" [placeholder]="'SELECTBOX.ROLES'|translate">
+            </ng-select>
+          </div>
+        </div>
+        <!-- Country -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.COUNTRY' |translate}}</label>
+            <ng-select [items]="listCountry" bindValue="id" bindLabel="countryNameEn" formControlName="countryId"
+              [placeholder]="'SELECTBOX.COUNTRY'|translate" (ngModelChange)="onChangeCountry($event)">
+            </ng-select>
+          </div>
+        </div>
+        <!-- City/Province -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.CITY' |translate}} / {{'TABLE.PROVINCE' |translate}}</label>
+            <ng-select [items]="listCity" bindValue="id" bindLabel="cityName" formControlName="cityId"
+              [placeholder]="'SELECTBOX.CITY'|translate" (ngModelChange)="onChangeCity($event)"></ng-select>
+          </div>
+        </div>
+        <!-- District -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="mb-3">
+            <label class="font-size-16">{{'TABLE.DISTRICT' |translate}}</label>
+            <ng-select [items]="listDistrict" bindValue="id" bindLabel="districtName" formControlName="districtId"
+              [placeholder]="'SELECTBOX.DISTRICT'|translate">
+            </ng-select>
+          </div>
+        </div>
+        <!-- Address -->
+        <div class="col-12 mb-3">
+          <label class="font-size-16">{{'TABLE.ADDRESS' |translate}}</label>
+          <textarea type="textarea" rows="3" class="form-control" formControlName="address"
+            [placeholder]="'PLACEHOLDER.ADDRESS'|translate"></textarea>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

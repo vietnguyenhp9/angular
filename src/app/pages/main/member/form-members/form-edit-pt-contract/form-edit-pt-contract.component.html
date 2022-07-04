@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-0 text-uppercase card-border-title">{{ 'FORM.EDIT_PT_CONTRACT' | translate }}</h4>
+    <form [formGroup]="form" *ngIf="form">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-12 ">
+          <!-- Sign date -->
+          <div class="form-group mt-3">
+            <label for="" class="form-label">{{ 'TABLE.SIGN_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control" formControlName="signDate">
+              </div>
+              <div class="col-6 ps-1">
+                <input type="time" class="form-control" formControlName="signTime">
+              </div>
+            </div>
+          </div>
+          <!-- Create date -->
+          <div class="form-group mt-3">
+            <label for="" class="form-label">{{ 'TABLE.CREATED_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control" formControlName="createdDate">
+              </div>
+              <div class="col-6 ps-1">
+                <input type="time" class="form-control" formControlName="createdTime">
+              </div>
+            </div>
+          </div>
+          <!-- status -->
+          <div class="form-group mt-3">
+            <label for="" class="form-label">{{ 'TABLE.STATUS' | translate }}</label>
+            <ng-select [items]="listStatus" formControlName="status" [placeholder]="'SELECTBOX.STATUS' | translate" [clearable]="false">
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-12 ">
+          <!-- Start date -->
+          <div class="form-group mt-3">
+            <label for="" class="form-label">{{ 'TABLE.START_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control" formControlName="startDate">
+              </div>
+              <div class="col-6 ps-1">
+                <input type="time" class="form-control" formControlName="startTime">
+              </div>
+            </div>
+          </div>
+          <!-- End date -->
+          <div class="form-group mt-3">
+            <label for="" class="form-label">{{ 'TABLE.END_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control" formControlName="endDate">
+              </div>
+              <div class="col-6 ps-1">
+                <input type="time" class="form-control" formControlName="endTime">
+              </div>
+            </div>
+          </div>
+          <!-- Pt Name -->
+          <div class="form-group mt-3">
+            <label for="" class="form-label">{{ 'TABLE.NUM_OF_COMPLETED_SESSIONS' | translate }}</label>
+            <input class="form-control" formControlName="numOfCompletedSessions"/>
+          </div>
+        </div>
+        <div class="col-12 mt-3">
+          <label for="">{{'TABLE.PT_PACKAGE' | translate}}</label>
+        <ng-select formControlName="ptPackageId" [placeholder]="'SELECTBOX.PAYMENT_PLAN' | translate" [clearable]="false">
+          <ng-option *ngFor="let package of listPtPackage" [value]="package.id">
+            {{ translate.currentLang === 'en' ? package.nameEn : package.nameVi }}
+          </ng-option>
+        </ng-select>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="card-footer d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="editPtContract()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

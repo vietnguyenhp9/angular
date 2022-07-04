@@ -1,0 +1,15 @@
+<div class="container-fluid" style="animation: smoothAppear 1.5s ease-in-out;">
+  <div class="col-12">
+    <div class="image-container">
+      <img src="{{image}}" alt="image" [style.transform]="styles" class="img-fluid img-content">
+    </div>
+  </div>
+  <div class="col-12 flex-center mt-2">
+    <div class="btn img-button-left me-1"  [ngClass]="hidden" (click)="rotateImage('left')">
+      <i class="mdi mdi-format-rotate-90"></i>
+    </div>
+    <div class="btn img-button-right ms-1"  [ngClass]="hidden" (click)="rotateImage('right')">
+      <i class="mdi mdi-format-rotate-90"></i>
+    </div>
+  </div>
+</div>

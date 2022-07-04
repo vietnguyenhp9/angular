@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-body h-vh100">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'DATA.SUBSCRIPTIONS.TNG_PAY_TITLE' | translate }}
+    </h4>
+    <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills nav-justified nav">
+      <li [ngbNavItem]="1" [ngbTooltip]="'TAB_MENU.LIST_TNG_PAY' | translate" (click)="onChangeTab()">
+        <a ngbNavLink>
+          <span class="d-block d-sm-none"><i class="fas fa-money-check-alt"></i></span>
+          <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.LIST_TNG_PAY" |translate}}</span>
+        </a>
+        <ng-template ngbNavContent>
+          <ng-template [ngTemplateOutlet]="TngPay"></ng-template>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2" [ngbTooltip]="'TAB_MENU.TNG_SCHEDULE_CHARGE' | translate" (click)="onChangeTab()">
+        <a ngbNavLink>
+          <span class="d-block d-sm-none"><i class="fas fa-clipboard-list"></i></span>
+          <span class="d-none d-sm-block text-uppercase">{{"TAB_MENU.TNG_SCHEDULE_CHARGE" |translate}}</span>
+        </a>
+        <ng-template ngbNavContent>
+          <ng-template [ngTemplateOutlet]="ScheduleCharge"></ng-template>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </div>
+</div>
+
+<!-- Tab Customer Expired -->
+<ng-template #TngPay>
+  <app-list-tng-pay *ngIf="isListTngPay" [isListTngPay]="isListTngPay">
+  </app-list-tng-pay>
+</ng-template>
+
+<!-- Tab Customer Expiring -->
+<ng-template #ScheduleCharge>
+  <app-list-tng-pay *ngIf="!isListTngPay" [isListTngPay]="isListTngPay">
+  </app-list-tng-pay>
+</ng-template>

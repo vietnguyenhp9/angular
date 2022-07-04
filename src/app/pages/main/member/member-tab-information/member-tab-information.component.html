@@ -1,0 +1,97 @@
+<div class="row mt-4">
+  <!-- Status Contract -->
+  <div class="col-xl-4 col-lg-12 col-md-12 col-12">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card overflow-hidden">
+          <div class="card-body p-0 p-lg-2">
+            <div class="row">
+              <div class="card-contract-status">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20"
+                        [ngClass]="contractDebit !== 0 ? 'fas fa-times icon-color-red' : 'fas fa-check icon-color-green'"></i>
+                      {{ 'USER_INFO.BALANCE_STATUS' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ contractDebit > 0 ? '- ' + (contractDebit | currency: 'VND':'') : '0' }}
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14">
+                      <i class="mr-10 w-20"
+                        [ngClass]="ptContractDebit !== 0 ? 'fas fa-times icon-color-red' : 'fas fa-check icon-color-green'"></i>
+                      {{ 'USER_INFO.PT_CONTRACT_BALANCE' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">
+                      {{ ptContractDebit > 0 ? '- ' + (ptContractDebit | currency: 'VND':'') : '0'}}
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14"><i class="fas fa-check icon-color-green mr-10 w-20"></i>
+                      {{ 'USER_INFO.DEPOSIT' | translate }}
+                    </h6>
+                    <h6 class="font-size-14">0</h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Payment Plan -->
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body p-0 p-lg-2">
+            <div class="row">
+              <div class="card-payment">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14 text-overflow"><i
+                        class="fas fa-calendar-check mr-10 w-20 icon-color-orange"></i>{{
+                      'USER_INFO.PAYMENT_PLAN'
+                      | translate }}</h6>
+                    <h6 class="font-size-14 text-overflow text-right"
+                      [ngClass]="userMemberInfo?.paymentPlanDetail ? 'w-50': ''" [ngbTooltip]="(translate.currentLang === 'en' ? userMemberInfo?.paymentPlanDetail?.nameEn
+                      : userMemberInfo?.paymentPlanDetail?.nameVi) || '-' ">
+                      {{ (translate.currentLang === 'en' ? userMemberInfo?.paymentPlanDetail?.nameEn
+                      : userMemberInfo?.paymentPlanDetail?.nameVi) || '-' }}
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14"><i class="fas fa-user-check mr-10 w-20 icon-color-orange"></i>{{
+                      'USER_INFO.ACCESS_RULES' |
+                      translate }}</h6>
+                    <h6 class="font-size-14">{{ '0' }}</h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14"><i class="fas fa-hourglass-start mr-10 w-20 icon-color-orange"></i>{{
+                      'USER_INFO.START_DATE'
+                      | translate }}</h6>
+                    <h6 class="font-size-14">{{ (userMemberInfo?.memberContract?.startDate | date: dateFormat) || '-' }}
+                    </h6>
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center card-border-1x m-3 mt-4 mb-4">
+                    <h6 class="font-size-14"><i class="fas fa-hourglass-end mr-10 w-20 icon-color-orange"></i>{{
+                      'USER_INFO.EXPIRE_DATE' |
+                      translate }}</h6>
+                    <h6 class="font-size-14">{{ (userMemberInfo?.memberContract?.expireDate | date: dateFormat) || '-'
+                      }}</h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- UserInfo -->
+  <div class="col-xl-8 col-lg-12 col-md-12">
+    <app-user-info-details [userMemberInfo]="userMemberInfo" [toggleClubs]="toggleClubs">
+      (toggleClubsHide)="toggleClubs = $event"
+      (toggle)="openSelectBox=$event"
+    </app-user-info-details>
+  </div>
+</div>

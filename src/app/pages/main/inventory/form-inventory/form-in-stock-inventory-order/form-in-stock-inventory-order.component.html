@@ -1,0 +1,122 @@
+<!-- Scrollable modal -->
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title text-center">{{ 'FORM.ORDER_DETAIL' | translate }}</h4>
+    <div class="row">
+      <!-- Order detail -->
+      <div class="col-6">
+        <div *ngFor="let item of listInventoryOrderDetail">
+          <div class="row">
+            <!-- Order ref -->
+            <div class="col-5 mt-2">
+              <label for="">{{'TABLE.ORDER_REF' | translate}}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center " disabled value="{{item.orderRef}}">
+            </div>
+            <!-- Create By -->
+            <div class="col-5 mt-2">
+              <label for="">{{'TABLE.CREATED_BY' | translate}}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center" disabled value="{{item.createdBy}}">
+            </div>
+            <!-- Approve By-->
+            <div class="col-5 mt-2">
+              <label for="">{{ 'TABLE.APPROVE_BY' | translate }}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center" disabled value="{{item.approvedBy}}">
+            </div> <!-- Confirmed By: -->
+            <div class="col-5 mt-2">
+              <label for=""> {{'TABLE.CONFIRM_BY' | translate}} :</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center" disabled value="{{item.confirmedBy}}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Warehouse -->
+      <div class="col-6">
+        <div *ngFor="let item of listInventoryOrderDetail">
+          <div class="row">
+            <!-- Warehouse name -->
+            <div class="col-5 mt-2">
+              <label for="">{{'TABLE.WAREHOUSE' | translate}}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center " disabled value="{{item.warehouseName}}">
+            </div>
+            <!-- Create At -->
+            <div class="col-5 mt-2">
+              <label for="">{{'TABLE.CREATED_AT' | translate}}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center" disabled
+                value="{{item.createdAt | date: dayFormat ||'-'}}">
+            </div>
+            <!-- Approve At-->
+            <div class="col-5 mt-2">
+              <label for="">{{'TABLE.APPROVE_AT' | translate}}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center" disabled
+                value="{{item.approvedAt | date: dayFormat ||'-'}}">
+            </div> <!-- Confirmed At -->
+            <div class="col-5 mt-2">
+              <label for="">{{'TABLE.CONFIRM_AT' | translate}}:</label>
+            </div>
+            <div class="col-7 mt-2">
+              <input type="text" class="form-control text-center" disabled
+                value="{{item.confirmedAt | date: dayFormat ||'-'}}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Product detail -->
+      <div class="col-12 text-center mt-3">
+        <h4 class="card-title mb-3 text-uppercase card-border-title text-center">{{ 'FORM.PRODUCT_DETAIL' | translate}}
+        </h4>
+      </div>
+      <div class="col-12 mt-3">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+              <tr class="text-center text-overflow text-uppercase font-size-15">
+                <th scope="col">{{ 'TABLE.PRODUCT_NAME' | translate }}</th>
+                <th scope="col">{{ 'TABLE.QUANTITY' | translate }}</th>
+                <th scope="col">{{ 'TABLE.COST_PRICE' | translate }}</th>
+                <th scope="col">{{ 'TABLE.VAT' | translate }}</th>
+                <th scope="col">{{ 'TABLE.SUPPLIER' | translate }}</th>
+                <th scope="col">{{ 'TABLE.PAYMENT_TOTAL' | translate }}</th>
+                <th scope="col">{{ 'TABLE.ORDER_FEE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="align-middle h6 font-size-14" *ngFor="let item of listProductOrderDetail">
+                <td class="text-center"> {{ item.nameEn }} </td>
+                <td class="text-center"> {{ item.quantity }} </td>
+                <td class="text-center"> {{ (item.costPrice | currency: 'VND':'') || '0' }} VND </td>
+                <td class="text-center"> {{ (item.VAT) ||'0' }} %</td>
+                <td class="text-center "> {{ item.supplierName }} </td>
+                <td class="text-center">{{ (item.paymentTotal | currency: 'VND':'') }} VND</td>
+                <td class="text-center">
+                  <p>{{'TABLE.FEE_SHIP'|translate}}:{{ (item.fee?.ship | currency: 'VND':'')||0}} VND</p>
+                  <p>{{'TABLE.FEE_INSURANCE'|translate}}:{{ (item.fee?.insurance | currency: 'VND':'')||0}} VND</p>
+                  <p>{{'TABLE.FEE_OTHER'|translate}}:{{ (item.fee?.other | currency: 'VND':'')||0}} VND</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+      <button type="reset" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow" (click)="onCancel()">
+        {{ 'BUTTON.CANCEL' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

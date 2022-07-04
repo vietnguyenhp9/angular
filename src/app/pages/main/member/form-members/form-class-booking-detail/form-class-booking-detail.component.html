@@ -1,0 +1,124 @@
+<div class="card" style="z-index: 9999;">
+  <div class="card-body font-size-15">
+    <h4 class="card-title text-uppercase card-border-title">{{ (type === 'CLASSBOOKING' ? 'FORM.MEMBER_BOOKING_DETAIL' :
+      'FORM.PT_BOOKING_DETAIL')| translate }}</h4>
+    <div class="card-btn-close">
+      <i (click)="onCancel()" class="fas fa-window-close"></i>
+    </div>
+    <!-- MemberBookingDetail -->
+    <div *ngIf="type === 'CLASSBOOKING'">
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.CLUB' | translate }}</label>
+            <input class="form-control" readonly
+              [value]="translate.currentLang === 'en' ? memberClassDetail.clubNameEn : memberClassDetail.clubNameVi" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.START_TIME' | translate }}</label>
+            <input type="time" class="form-control" readonly [value]="memberClassDetail.startTime" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.TOTAL_BOOKING' | translate }}</label>
+            <input class="form-control" readonly
+              [value]="memberClassDetail.bookedMember + '/' + memberClassDetail.maxiumNumberOfMember" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="col">
+            <div class="mb-3">
+              <label class="form-label">{{ 'TABLE.STATUS' | translate }}</label>
+              <ng-select [items]="listStatus" [disabled]="isEditClassBooking === false" id="class-status"
+                [placeholder]="'SELECTBOX.STATUS' | translate" [(ngModel)]="memberClassDetail.status"
+                [clearable]="false" (ngModelChange)="onChangeEditStatus($event)">
+              </ng-select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{ 'TABLE.END_TIME' | translate }}</label>
+              <input type="time" class="form-control" readonly [value]="memberClassDetail.finishTime" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{ 'TABLE.TOTAL_RESERVED' | translate }}</label>
+              <input class="form-control" readonly
+                [value]="memberClassDetail.reservedMember + '/' + memberClassDetail.maxiumReserveMember" />
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{{ 'TABLE.BOOK_TIME' | translate }}</label>
+          <div class="row">
+            <div class="col-6">
+              <input type="date" class="form-control" [readonly]="!isEditClassBooking"
+                [(ngModel)]="memberClassDetail.bookDate" (ngModelChange)="onChangeTime($event, 'date')" />
+            </div>
+            <div class="col-6">
+              <input class="form-control" type="time" placeholder="HH:mm:ss" max="17:00:00" step="2" required
+                [readonly]="!isEditClassBooking" [(ngModel)]="memberClassDetail.bookTime"
+                (ngModelChange)="onChangeTime($event, 'time')" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="d-flex flex-wrap gap-2 justify-content-center" *ngxPermissionsOnly="'PU_MEMBERCLASSBOOKING'">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onEditClassBooking()">
+          {{ 'BUTTON.EDIT' | translate }}
+        </button>
+        <button [disabled]="isEditClassBooking === false" type="submit"
+          class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmitClassBooking()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </div>
+    <!-- PTBookingDetail -->
+    <div *ngIf="type === 'PTBOOKING'">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.PT_CONTRACT_ID' | translate }}</label>
+            <input class="form-control" readonly [value]="ptClassDetail.ptContractId" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.PACKAGE_NAME' | translate }}</label>
+            <input class="form-control" readonly
+              [value]="translate.currentLang === 'en' ? ptClassDetail.ptPackageNameEn : ptClassDetail.ptPackageNameVn" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.CLUB' | translate }}</label>
+            <input class="form-control" readonly
+              [value]="translate.currentLang === 'en' ? ptClassDetail.clubNameEn : ptClassDetail.clubNameVi" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.START_TIME' | translate }}</label>
+            <input class="form-control" readonly [value]="ptClassDetail.startDate | date: dateFormat" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="col">
+            <div class="mb-3">
+              <label class="form-label">{{ 'TABLE.STATUS' | translate }}</label>
+              <input class="form-control" readonly [value]="ptClassDetail.status" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{ 'TABLE.END_TIME' | translate }}</label>
+              <input class="form-control" readonly [value]="ptClassDetail.endDate | date: dateFormat" />
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">{{ 'TABLE.PT_NAME' | translate }}</label>
+          <input class="form-control text-center text-uppercase" readonly [value]="ptClassDetail.ptName" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

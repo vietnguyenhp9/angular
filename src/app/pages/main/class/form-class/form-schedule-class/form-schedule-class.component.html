@@ -1,0 +1,106 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ title | translate }}</h4>
+    <form [formGroup]="form" *ngIf="form">
+      <div class="row">
+        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+          <!-- Club -->
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.CLUB' | translate}}</label>
+            <ng-select formControlName="clubId" (change)="onChangeClub($event)"
+              [placeholder]="'SELECTBOX.CLUB' | translate" [clearable]="false">
+              <ng-option *ngFor="let club of listClub" [value]="club.id">
+                {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <!-- Beginning -->
+          <div class="mb-3">
+            <label class="form-label">{{ 'TABLE.BEGINNING' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control mb-2 mb-sm-2 mb-md-2 mb-lg-0 mb-xl-0"
+                  formControlName="beginDate" />
+              </div>
+              <div class="col-6 ps-1">
+                <input class="form-control" type="time" formControlName="beginTime" placeholder="HH:mm:ss"
+                  max="17:00:00" step="2" required />
+              </div>
+            </div>
+          </div>
+          <!-- Number Booking -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.NUMBER_BOOKING' | translate }}</label>
+            <input type="number" class="form-control" formControlName="maxiumNumberOfMember">
+          </div>
+        </div>
+        <div class=" col-12 col-xl-6 col-lg-6 col-md-6 ">
+          <!-- Class -->
+          <div class=" mb-3">
+            <label class="form-label">{{ 'TABLE.CLASS' | translate}}</label>
+            <ng-select formControlName="classId" [placeholder]="'SELECTBOX.CLASS' | translate" [clearable]="false">
+              <ng-option *ngFor="let class of listClass" [value]="class.id">
+                {{ translate.currentLang === 'en' ? class.nameEn : class.nameVi }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <!-- Duration -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.DURATION' | translate }} (Minutes)</label>
+            <input type="number" class="form-control" formControlName="durationInMins">
+          </div>
+          <!-- Number Reserved -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.NUMBER_RESERVED' | translate }}</label>
+            <input type="number" class="form-control" formControlName="maxiumReserveMember">
+          </div>
+        </div>
+      </div>
+      <!-- Studio -->
+      <div class=" mb-3">
+        <label class="form-label">{{ 'TABLE.STUDIO' | translate}}</label>
+        <input type="text" class="form-control" formControlName="studioId" [hidden]="true">
+        <input type="text" class="form-control" formControlName="nameStudio">
+      </div>
+      <!-- Repeat -->
+      <div class="mb-3 form-group">
+        <label for="" class="form-label">{{ 'TABLE.IS_REPEAT' | translate }}</label>
+        <label>
+          <input class="form-check-input ms-2" type="checkbox" name="isRepeat" formControlName="isRepeat"
+            (click)="showRepeat()" />
+        </label>
+      </div>
+      <div class="repeat-on group" *ngIf="isShowRepeat">
+        <div class="col-12">
+          <div class="weekDays-selector">
+            <input type="checkbox" formControlName="isRepeatOnSunday" id="weekday-sun" class="weekday" />
+            <label for="weekday-sun">Sun</label>
+            <input type="checkbox" formControlName="isRepeatOnMonday" id="weekday-mon" class="weekday" />
+            <label for="weekday-mon">Mon</label>
+            <input type="checkbox" formControlName="isRepeatOnTuesday" id="weekday-tue" class="weekday" />
+            <label for="weekday-tue">Tue</label>
+            <input type="checkbox" formControlName="isRepeatOnWednesday" id="weekday-wed" class="weekday" />
+            <label for="weekday-wed">Wed</label>
+            <input type="checkbox" formControlName="isRepeatOnThursday" id="weekday-thurs" class="weekday" />
+            <label for="weekday-thurs">Thurs</label>
+            <input type="checkbox" formControlName="isRepeatOnFriday" id="weekday-fri" class="weekday" />
+            <label for="weekday-fri">Fri</label>
+            <input type="checkbox" formControlName="isRepeatOnSaturday" id="weekday-sat" class="weekday" />
+            <label for="weekday-sat">Sat</label>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="card-footer d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmit()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="card overflow-hidden">
+  <div class="card-body p-0 p-lg-2">
+    <div class="row">
+      <ul class="list-unstyled mb-0 col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 text-overflow"
+        style="border-right: 0.5px solid #f3f1f1;">
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-user-tag mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.FULL_NAME' | translate }}
+          </h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.firstName + ' ' + userMemberInfo?.lastName }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-phone mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.PHONE' |
+            translate }}</h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.phoneNumber }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-envelope mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.EMAIL'
+            |
+            translate }}</h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.email }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-address-card mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.IDENTITY_NUMBER' |
+            translate }}
+          </h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.identityNumber || '-' }}</h6>
+        </li>
+
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-city mr-5 w-20 icon-color-blue-sky"></i>{{ 'USER_INFO.CITY'
+            |
+            translate }}</h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.cityDetail?.cityName || '-' }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4 mb-0">
+          <h6 class="font-size-14"><i class="fas fa-home mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.DISTRICT'
+            |
+            translate }}</h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.districtDetail?.districtName || '-'}}</h6>
+        </li>
+      </ul>
+      <!-- Middle -->
+      <ul class="list-unstyled mb-0 col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-user-alt mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.ID' |
+            translate }}</h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.accountId }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="far fa-credit-card mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.PIN_NUMBER' | translate }}
+          </h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.pin }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-venus-mars mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.GENDER'
+            | translate }}</h6>
+          <h6 class="font-size-14">{{ userMemberInfo?.gender ? ('GENDER.MALE' | translate) : 'GENDER.FEMALE' |
+            translate
+            }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+          <h6 class="font-size-14"><i class="fas fa-birthday-cake mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.BIRTH_DATE' | translate
+            }}</h6>
+          <h6 class="font-size-14">{{ (userMemberInfo?.birthday | date: dayFormat) || '-' }}</h6>
+        </li>
+        <li class="d-flex justify-content-between align-items-center card-border-1x m-4 mb-0">
+          <h6 class="font-size-14"><i class="fas fa-fingerprint mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.FINGER_ENROLL' | translate
+            }}</h6>
+          <h6 class="font-size-14"><i style="font-size: 16pt"
+              [ngClass]="userMemberInfo?.fingerEnroll ? 'far fa-check-circle icon-color-green icon-check' : 'fas fa-times-circle icon-color-red icon-time'"></i>
+          </h6>
+        </li>
+        <!-- Change club -->
+        <ng-template *ngIf="checkPermission">
+          <li class="d-flex justify-content-between align-items-center card-border-1x m-4">
+            <button *ngIf="!openSelectBox" (click)="toggleClubs()" type="button"
+              class="btn btn-primary btn-lg text-uppercase">
+              {{ 'BUTTON.CHANGE_CLUB' | translate }}
+            </button>
+            <div *ngIf="openSelectBox" class=" col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+              <ng-select class="mt-1" (valueChanged)="onChangeClub($event)"
+                [placeholder]="'SELECTBOX.CLUB' | translate">
+                <ng-option *ngFor="let club of listClub" [value]="club.id">
+                  {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+                </ng-option>
+              </ng-select>
+            </div>
+          </li>
+        </ng-template>
+      </ul>
+      <!-- Bottom -->
+      <ul class="list-unstyled mb-0 col-12">
+        <li class="row card-border-1x m-3">
+          <div class="col-5 font-size-14 text-nowrap mb-1 ps-2"><i class="fas fa-map-marked-alt mr-5 w-20 icon-color-blue-sky"></i>{{
+            'USER_INFO.ADDRESS' | translate }}
+          </div>
+          <div class="col-7 font-size-12 mt-1 text-end pe-2">{{ userMemberInfo?.address || '-' }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

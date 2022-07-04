@@ -1,0 +1,107 @@
+<header id="page-topbar">
+  <div class="navbar-header">
+    <div class="d-flex">
+      <!-- LOGO -->
+      <div class="navbar-brand-box flex-center">
+        <!-- <a routerLink="/" class="logo logo-dark">
+          <span class="logo-sm">
+            <img src="assets/images/gymvisionlogo.png" alt="" height="22">
+          </span>
+          <span class="logo-lg">
+            <img src="assets/images/gymvisionlogo.png" alt="" height="17">
+          </span>
+        </a> -->
+
+        <a routerLink="/" class="logo">
+          <span class="logo-sm flex">
+            <img src="assets/images/gymvisionlogo.png" alt="" height="25" class="mb-1 ms-2 me-2">
+          </span>
+          <span class="logo-lg flex flex-nowrap">
+            <img src="assets/images/gymvisionlogo.png" alt="" height="35" class="mb-1">
+            <img src="assets/images/gymvisionlogotext.png" alt="" height="30" class="ps-2 mt-1">
+          </span>
+        </a>
+      </div>
+
+      <button class="menu-toggle-btn px-3 btn btn-sm header-item" [ngClass]="toggleCss ? 'open' : ''"
+        (click)="toggleMobileMenu($event)">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="d-flex">
+      <div class="dropdown d-inline-block d-lg-none ms-2" ngbDropdown>
+        <button type="button" class="btn header-item noti-icon" id="page-header-search-dropdown" data-toggle="dropdown"
+          aria-haspopup="true" ngbDropdownToggle aria-expanded="false">
+          <i class="mdi mdi-magnify"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" ngbDropdownMenu
+          aria-labelledby="page-header-search-dropdown">
+          <form class="p-3">
+            <div class="m-0">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="dropdown d-inline-block" ngbDropdown>
+        <button type="button" class="btn header-item" id="page-header-user-dropdown" ngbDropdownToggle>
+          <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16"> <span
+            class="ms-1">{{countryName}}</span>
+          <img *ngIf="flagvalue === undefined" src="{{valueset}}" alt="Header Language" height="16">
+          <span *ngIf="flagvalue === undefined" class="ms-1">English</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+          <!-- item-->
+          <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listLang"
+            (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': langValue === item.lang}">
+            <img src="{{item.flag}}" alt="user-image" class="me-1" height="12"> <span
+              class="align-middle">{{item.text}}</span>
+          </a>
+          <!-- item-->
+        </div>
+      </div>
+
+      <div class="dropdown d-none d-lg-inline-block ms-1">
+        <button type="button" class="btn header-item noti-icon" data-toggle="fullscreen" (click)="fullscreen()">
+          <i class="bx bx-fullscreen"></i>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block" ngbDropdown>
+        <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown"
+          ngbDropdownToggle>
+          <i class="bx bx-bell bx-tada"></i>
+          <span class="badge bg-danger rounded-pill">3</span>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block" ngbDropdown>
+        <button type="button" class="btn header-item" ngbDropdownToggle id="page-header-user-dropdown">
+          <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-admin.png"
+            alt="Header Avatar">
+          <span class="d-none d-xl-inline-block ms-1">{{ userInfo.firstName + ' ' + userInfo.lastName }}</span>
+          <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+          <!-- item-->
+          <a class="dropdown-item" routerLink="/contacts/profile"><i
+              class="bx bx-user font-size-16 align-middle me-1"></i>
+            {{ 'HEADER.LOGIN.PROFILE' | translate}}</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-danger" href="javascript: void(0);" (click)="logout()"><i
+              class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+            {{ 'HEADER.LOGIN.LOGOUT' | translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

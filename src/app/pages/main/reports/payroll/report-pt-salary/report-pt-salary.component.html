@@ -1,0 +1,206 @@
+<div class="row mt-0">
+    <div class="col-12">
+        <div class="row mb-3 mt-2">
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+                <ng-select class="mt-3" [(ngModel)]="selectedClub" (ngModelChange)="onChangeClub($event)"
+                    [placeholder]="'SELECTBOX.CLUB' | translate" [disabled]="isDisableSelected">
+                    <ng-option *ngFor="let club of listClub" [value]="club.id">
+                        {{ translate.currentLang === 'en' ? club.nameEn : club.nameVi }}
+                    </ng-option>
+                </ng-select>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+                <ng-select class=" mt-3" [(ngModel)]="selectedGroup" (ngModelChange)="onChangeGroup($event)"
+                    [placeholder]="'SELECTBOX.GROUP' | translate">
+                    <ng-option *ngFor="let group of listGroup" [value]="group.id">
+                        {{ group.groupName}}
+                    </ng-option>
+                </ng-select>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
+                <ng-select class=" mt-3" [(ngModel)]="selectedPt" (ngModelChange)="onChangePt($event)"
+                    [placeholder]="'SELECTBOX.PT' | translate">
+                    <ng-option *ngFor="let pt of listPt" [value]="pt.ptId">
+                        {{ pt.ptName}}
+                    </ng-option>
+                </ng-select>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 mt-3 text-center flex">
+                <div class="me-1 w-100">
+                    <ng-select [items]="listMonth" bindLabel="month" bindValue="month" [clearable]="false"
+                        [(ngModel)]="selectedMonth" [placeholder]="'SELECTBOX.TYPE_SELECT.MONTH'|translate"
+                        (ngModelChange)="onChangeMonth($event)">
+                    </ng-select>
+                </div>
+                <div class="ms-1 w-100">
+                    <ng-select [items]="listYear" bindLabel="year" bindValue="year" [clearable]="false"
+                        [(ngModel)]="selectedYear" [placeholder]="'SELECTBOX.TYPE_SELECT.YEAR'|translate"
+                        (ngModelChange)="onChangeYear($event)">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="flex-between flex-wrap mb-3 mt-2">
+            <div>
+                <button (click)="exportExcelPTSalary()" type="button"
+                    class="btn btn-success text-uppercase mr-3 font-size-14 align-self-center mt-2 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0 btn-shadow">
+                    <i class="fas fa-file-excel mr-3"></i> {{"BUTTON.EXPORT"|translate}}
+                </button>
+            </div>
+            <div>
+
+            </div>
+            <div class="flex flex-wrap">
+                <div class="text-uppercase font-size-16 text-primary mt-2 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0 me-2">
+                    {{"DATA.REPORTS.TOTAL_BONUS"|translate}}:<span class="ms-1 text-danger">{{totalBonus | currency:
+                        'VND':''}} VND</span></div>
+                <div
+                    class="text-uppercase font-size-16 text-primary align-self-center mt-2 mt-sm-0 mt-md-0 mt-lg-0 mt-xl-0">
+                    {{"DATA.REPORTS.TOTAL_REVENUE"|translate}}:<span class="ms-1 text-danger"> {{totalRevenue |
+                        currency:
+                        'VND':''}} VND</span></div>
+                <div class="line"></div>
+            </div>
+        </div>
+        <!-- table -->
+        <div class="col-12 h-vh100">
+            <div class="table-responsive">
+                <table
+                    class="table table-striped table-bordered table-nowrap dt-responsive nowrap no-footer dtr-inline">
+                    <thead>
+                        <tr class="text-center text-overflow text-uppercase font-size-15">
+                            <th scope="col">{{ 'TABLE.ID' | translate }}</th>
+                            <th scope="col">{{ 'TABLE.FULL_NAME' | translate }}</th>
+                            <th scope="col">{{ 'TABLE.PHONE' | translate }}</th>
+                            <th scope="col">{{ 'TABLE.CLUB' | translate }}</th>
+                            <th scope="col">
+                                {{ 'TABLE.REVENUE' | translate }}
+                                <button class="button-sort" [ngClass]="checkedRevAsc ? 'enableSort' : 'disableSort'"
+                                    (click)="sortData('revenue_asc')">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="button-sort" [ngClass]="checkedRevDesc ? 'enableSort' : 'disableSort'"
+                                    (click)="sortData('revenue_desc')">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                {{ 'TABLE.SALARY' | translate }}
+                                <button class="button-sort" [ngClass]="checkedSalaryAsc ? 'enableSort' : 'disableSort'"
+                                    (click)="sortData('salary_asc')">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="button-sort" [ngClass]="checkedSalaryDesc ? 'enableSort' : 'disableSort'"
+                                    (click)="sortData('salary_desc')">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                {{'TABLE.BONUS' | translate}}
+                                <button class="button-sort" [ngClass]="
+                    checkedOtherBonusAsc ? 'enableSort' : 'disableSort'
+                  " (click)="sortData('otherBonus_asc')">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="button-sort" [ngClass]="
+                    checkedOtherBonusDesc ? 'enableSort' : 'disableSort'
+                  " (click)="sortData('otherBonus_desc')">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                {{'TABLE.TOTAL_SALARY' | translate}}
+                                <button class="button-sort" [ngClass]="
+                    checkedTotalSalaryAsc ? 'enableSort' : 'disableSort'
+                  " (click)="sortData('totalSalary_asc')">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="button-sort" [ngClass]="
+                    checkedTotalSalaryDesc ? 'enableSort' : 'disableSort'
+                  " (click)="sortData('totalSalary_desc')">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                {{'TABLE.TAX' | translate}}
+                                <button class="button-sort" [ngClass]="checkedPitAsc ? 'enableSort' : 'disableSort'"
+                                    (click)="sortData('pitAmount_asc')">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="button-sort" [ngClass]="checkedPitDesc ? 'enableSort' : 'disableSort'"
+                                    (click)="sortData('pitAmount_desc')">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </th>
+                            <th scope="col">
+                                {{'TABLE.ACTUAL_SALARY' | translate}}
+                                <button class="button-sort" [ngClass]="
+                                  checkedActualSalaryAsc ? 'enableSort' : 'disableSort'
+                                " (click)="sortData('actualSalary_asc')">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="button-sort" [ngClass]="
+                                  checkedActualSalaryDesc ? 'enableSort' : 'disableSort'
+                                " (click)="sortData('actualSalary_desc')">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </th>
+                            <th scope="col">{{ 'TABLE.MANAGE' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="align-middle h6 font-size-14" *ngFor="let item of listPtSalary">
+                            <td class="text-center">
+                                {{ item.ptId }}
+                            </td>
+                            <td class="text-center cursor-pointer" (click)="hyperLinkMemberPayroll(item.ptAccountId)">
+                                <p class="m-0">{{ item.ptName }}</p>
+                                <p class="m-0 pt-2">{{ item.email }}</p>
+                            </td>
+                            <td class="text-center">{{ item.phoneNumber }}</td>
+                            <td class="text-center">{{ translate.currentLang === 'en'? item.clubNameEn :item.clubNameVi
+                                }}</td>
+                            <td class="text-center">{{ item.revenue || '0' | currency: 'VND':'' }}</td>
+                            <td class="text-center">{{ item.salary || '0' | currency: 'VND':'' }}</td>
+                            <td class="text-center">{{item.otherBonus||'0' | currency: 'VND':'' }}</td>
+                            <td class="text-center">{{item.totalSalary||'0' | currency: 'VND':''}}</td>
+                            <td class="text-center">{{item.pitAmount||'0' | currency: 'VND':''}}</td>
+                            <td class="text-center">{{item.actualSalary||'0' | currency: 'VND':''}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-only-shadow btn-success me-1" title="Add Bonus"
+                                    (click)="addPtBonus(item)">
+                                    <i class="fas fa-cash-register"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm btn-only-shadow ms-1" title="View Detail"
+                                    (click)="viewDetail(item, $event)">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center pagination-footer flex-wrap pagination-rounded">
+                <div class="paging-limit mt-3">
+                    <ng-select [clearable]="false" [(ngModel)]="pageSize" (change)="getListPtSalary()">
+                        <ng-option [value]="10">10</ng-option>
+                        <ng-option [value]="20">20</ng-option>
+                        <ng-option [value]="50">50</ng-option>
+                    </ng-select>
+                </div>
+                <div class="paging-nav h6">
+                    <ngb-pagination class="mb-0 font-size-12" [maxSize]="4" [rotate]="true" [ellipses]="false"
+                        [boundaryLinks]="true" [(page)]="page" [pageSize]="pageSize" [collectionSize]="total"
+                        (pageChange)="loadNext($event)">
+                        <ng-template ngbPaginationPrevious>PREV</ng-template>
+                        <ng-template ngbPaginationNext>NEXT</ng-template>
+                    </ngb-pagination>
+                </div>
+                <div class="paging-total mt-3">
+                    <span class="h6 fw-bold">{{ total || 0 }}</span> {{ 'PAGING.ITEM_IN' | translate }} <span
+                        class="h6 fw-bold">{{ pages || 0 }}</span> {{ 'PAGING.PAGES' | translate }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

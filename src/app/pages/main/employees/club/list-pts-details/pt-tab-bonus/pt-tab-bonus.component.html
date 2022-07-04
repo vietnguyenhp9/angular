@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="row mb-3 mt-2">
+          <div class="mt-3 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 flex-between">
+            <div class="text-center w-100 me-1">
+              <ng-select [items]="listMonths" [clearable]="false" [(ngModel)]="month"
+                [placeholder]="'SELECTBOX.TYPE_SELECT.MONTH'|translate" (ngModelChange)="onChangeMonth($event)">
+              </ng-select>
+            </div>
+            <div class="text-center w-100 ms-1">
+              <ng-select [items]="listYears" [clearable]="false" [(ngModel)]="year"
+                [placeholder]="'SELECTBOX.TYPE_SELECT.YEAR'|translate" (ngModelChange)="onChangeYear($event)">
+              </ng-select>
+            </div>
+          </div>
+          <div class="col text-right d-flex justify-content-sm-end font-size-16 mt-3 text-uppercase">
+            {{'TABLE.PAYROLL' | translate}}:<span class="me-2 ms-2 text-danger">{{ totalBonus | currency: 'VND':''
+              }} VND</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Accordion -->
+    <ngb-accordion #acc="ngbAccordion" [closeOthers]="true">
+      <ngb-panel id="static-1">
+        <ng-template ngbPanelTitle class="text-black">
+          <span class="text-uppercase font-size-15">{{"USER_INFO.PAYROLL_REVENUE"|translate}}: {{payrollRevenue|
+            currency: 'VND':''}} VND</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <app-table-bonus [listData]="listPtBonusPayrollRevenue"></app-table-bonus>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel id="static-2">
+        <ng-template ngbPanelTitle>
+          <span class="text-uppercase font-size-15">{{"USER_INFO.RANK"|translate}}: {{ rank | currency: 'VND':''}}
+            VND</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <app-table-bonus [listData]="listPtBonusRank"></app-table-bonus>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel id="static-3" [disabled]="true">
+        <ng-template ngbPanelTitle>
+          <span class="text-uppercase font-size-15 text-primary">{{"USER_INFO.SUPPORT"|translate}}:
+            {{support |currency:'VND':''}} VND</span>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel id="static-4">
+        <ng-template ngbPanelTitle>
+          <span class="text-uppercase font-size-15">{{"USER_INFO.KEEP_RANK"|translate}}: {{keepRank | currency:
+            'VND':''}} VND</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <app-table-bonus [listData]="listPtBonusKeepRank"></app-table-bonus>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

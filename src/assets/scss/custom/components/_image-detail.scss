@@ -1,0 +1,60 @@
+.image-detail-wrap{
+  border: none;
+  background: none;
+}
+.image-detail>.modal-content{
+  border: none;
+  background: none;
+}
+.img-container{
+  position: relative;
+}
+
+.img-content{
+  transition: all 1s ease 0s;
+  z-index: 10000;
+}
+
+ .img-button-left{
+  border: 1px solid rgba(#212529,0.6);
+  color: #000;
+  background-color: rgba(#fff,0.4);
+  font-size: 20px;
+  z-index: 10010;
+  transform: scaleX(-1);
+}
+
+.img-button-left:hover{
+  background-color:#212529 ;
+  color: aliceblue;
+}
+
+.img-button-right{
+  border: 1px solid rgba(#212529,0.6);
+  color: #000;
+  background-color: rgba(#fff,0.4);
+  font-size: 20px;
+  z-index: 10010;
+}
+
+.img-button-right:hover{
+  background-color:#212529 ;
+  color: aliceblue;
+}
+
+.hidden-button-ava{
+  display: none;
+}
+.hidden-button-idcard{
+  display: none;
+}
+
+@keyframes smoothAppear {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+  
+}

@@ -1,0 +1,109 @@
+<div class="card">
+  <div class="card-body h-vh100">
+    <h4 class="card-title text-uppercase card-border-title">{{ 'DATA.EMPLOYEES.GROUP_PT_TITLE' | translate }}
+    </h4>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-3 text-center text-uppercase border-bottom pb-2">
+              {{ 'DATA.EMPLOYEES.LIST_CLUB_TITLE' | translate }}
+            </h4>
+            <div class="list-club-content">
+              <ul class="ps-0 list-group" *ngFor="let club of listClub; let i = index">
+                <li class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded"
+                  (click)="setIndexClub(i); showGroupPT(club.id)" [ngClass]="{ 'active': selectedIndexClub === i }">
+                  {{ translate.currentLang === 'en' ? club.nameEn: club.nameVi }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-3 text-center text-uppercase border-bottom pb-2">
+              {{ 'DATA.EMPLOYEES.LIST_GROUP_TITLE' | translate }}
+            </h4>
+            <div class="list-group-content">
+              <ul class="ps-0 list-group" *ngFor="let group of listGroup; let i = index">
+                <li class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded"
+                  (click)="setIndexGroup(i); showPTLeaderInGroup(group.id); showListPTInGroup(group.id)"
+                  [ngClass]="{ 'active': selectedIndexGroup === i }">
+                  {{ group.groupName }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-3 text-center text-uppercase border-bottom pb-2">
+              {{'DATA.EMPLOYEES.PT_LEADER_TITLE' | translate }}
+            </h4>
+            <div class="list-pt-leader-content">
+              <ul class="ps-0 list-group" *ngIf="ptLeader?.fullName">
+                <li
+                  class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded flex-between">
+                  <div>
+                    <p class="m-0">{{ ptLeader.fullName }}</p>
+                    <p class="m-0 pt-0 font-size-12 text-disable">{{ ptLeader.phone }}</p>
+                  </div>
+                  <ng-template [ngxPermissionsOnly]="'PU_REMOVELEADERGROUP'">
+                    <i class="fas fa-trash font-size-16" (click)="deletePT(ptLeader.leaderId, 'leader')"></i>
+                  </ng-template>
+                </li>
+              </ul>
+              <ng-template [ngxPermissionsOnly]="'P_ADDPTGROUP'">
+                <div *ngIf="!ptLeader">
+                  <ul class="ps-0 list-group">
+                    <li (click)="addPT('leader')"
+                      class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded text-center">
+                      <i class="fas fa-plus-square font-size-18"></i>
+                    </li>
+                  </ul>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-3 text-center text-uppercase border-bottom pb-2">
+              {{'DATA.EMPLOYEES.LIST_PT_TITLE' | translate }}
+            </h4>
+            <div class="list-pt-content">
+              <div *ngIf="listPT">
+                <ul class="ps-0 list-group" *ngFor="let pt of listPT">
+                  <li
+                    class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded flex-between">
+                    <div>
+                      <p class="m-0">{{ pt.ptName }}</p>
+                      <p class="m-0 pt-0 font-size-12 text-disable">{{ pt.phoneNumber }}</p>
+                    </div>
+                    <ng-template [ngxPermissionsOnly]="'P_REMOVEPTINGROUP'">
+                      <i class="fas fa-trash font-size-16" (click)="deletePT(pt.ptId, 'pt')"></i>
+                    </ng-template>
+                  </li>
+                </ul>
+              </div>
+              <ng-template [ngxPermissionsOnly]="'P_ADDPTGROUP'">
+                <div *ngIf="listPTForAdd.length">
+                  <ul class="ps-0 list-group">
+                    <li (click)="addPT('pt')"
+                      class="list-group-item list-group-item-action mt-1 mb-1 cursor-pointer shadow-sm rounded text-center">
+                      <i class="fas fa-plus-square font-size-18"></i>
+                    </li>
+                  </ul>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

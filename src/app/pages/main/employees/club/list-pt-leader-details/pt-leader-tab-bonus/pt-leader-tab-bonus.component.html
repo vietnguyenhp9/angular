@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- select box -->
+        <div class="row">
+          <div class="col-12">
+            <div class="row mb-3 mt-2">
+              <div class="mt-3 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 flex-between">
+                <div class="text-center w-100 me-1">
+                  <ng-select [items]="listMonths" [clearable]="false" [(ngModel)]="month"
+                    [placeholder]="'SELECTBOX.TYPE_SELECT.MONTH'|translate" (ngModelChange)="onChangeMonth($event)">
+                  </ng-select>
+                </div>
+                <div class="text-center w-100 ms-1">
+                  <ng-select [items]="listYears" [clearable]="false" [(ngModel)]="year"
+                    [placeholder]="'SELECTBOX.TYPE_SELECT.YEAR'|translate" (ngModelChange)="onChangeYear($event)">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col text-right d-flex justify-content-sm-end font-size-16 mt-3 text-uppercase">
+                {{'TABLE.PAYROLL' | translate}}:<span class="me-2 ms-2 text-danger">{{ totalRevenue | currency: 'VND':''
+                  }} VND</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- List Data  -->
+        <div class="row">
+          <div class="col-12">
+            <ngb-accordion #acc="ngbAccordion" [closeOthers]="true">
+              <ngb-panel id="static-1">
+                <ng-template ngbPanelTitle class="text-black">
+                  <span class="text-uppercase font-size-15">{{"USER_INFO.MONTH"|translate}}: {{ monthIncrease || 0 |
+                    currency: 'VND':''}} VND </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <ul class="list-unstyled mb-0 font-w500">
+                    <li class="flex align-items-center card-border-1x mb-3 ">
+                      <div class="font-size-15 mb-0 me-2">{{ "USER_INFO.PAYROLL"|translate }}:</div>
+                      <span>{{totalRevenue || 0 | currency: 'VND':'' }} VND</span>
+                    </li>
+                    <li class="flex align-items-center card-border-1x mt-3 mb-3">
+                      <div class="font-size-15 mb-0 me-2">{{ 'USER_INFO.PRE_PAYMENT' | translate }}: </div>
+                      <span>{{ prePayment || 0 | currency: 'VND':''}} VND</span>
+                    </li>
+                    <li class="flex align-items-center card-border-1x mt-3 mb-3">
+                      <div class="font-size-15 mb-0 me-2">{{ 'USER_INFO.QUARTER_SUMARY' | translate }}:</div>
+                      <span>{{ quarterSumary || 0 | currency: 'VND':''}} VND</span>
+                    </li>
+                    <li class="flex align-items-center card-border-1x mt-3 mb-3">
+                      <div class="font-size-15 mb-0 me-2">{{ 'USER_INFO.TRAINING' | translate }}:</div>
+                      <span class="text-overflow">{{ training || 0 | currency: 'VND':''}} VND</span>
+                    </li>
+                  </ul>
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel id="static-2" [disabled]="true">
+                <ng-template ngbPanelTitle>
+                  <span class="text-uppercase font-size-15 text-primary">{{"USER_INFO.QUARTER"|translate}}:{{
+                    quarterIncrease|| 0 | currency: 'VND':''}} VND </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel id="static-3" [disabled]="true">
+                <ng-template ngbPanelTitle>
+                  <span class="text-uppercase font-size-15 text-primary">{{"USER_INFO.YEAR"|translate}}:{{ yearIncrease
+                    || 0 | currency: 'VND':''}} VND </span>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

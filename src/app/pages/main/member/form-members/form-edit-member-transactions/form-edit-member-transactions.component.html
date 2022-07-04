@@ -1,0 +1,97 @@
+<div class="card">
+  <div class="card-body font-size-15">
+    <h4 class="card-title mb-3 text-uppercase card-border-title">{{ 'FORM.EDIT_MEMBER_TRANSACTIONS' | translate }}</h4>
+    <form [formGroup]="form" *ngIf="form">
+      <div class="row">
+        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+          <!-- Create by -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.SELLER' | translate }}</label>
+            <input type="text" class="form-control" formControlName="sellerName">
+          </div>
+          <!-- Coupon code id-->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.COUPON_CODE_ID' | translate }}</label>
+            <ng-select formControlName="couponCodeId" [placeholder]="'SELECTBOX.COUPON' | translate">
+              <ng-option *ngFor="let coupon of listCouponCode" [value]="coupon.couponCode">
+                {{ coupon.couponCode }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <!-- Transaction Amount -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.TRANSACTION_AMOUNT' | translate }}</label>
+            <input type="number" min="0" class="form-control" formControlName="transactionAmount"
+              (keyup)="onChangeAmount()">
+          </div>
+          <!-- Purchase date -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.PURCHASE_DATE' | translate }}</label>
+            <div class="row">
+              <div class="col-6 pe-1">
+                <input type="date" class="form-control" formControlName="purchaseDate">
+              </div>
+              <div class="col-6 ps-1">
+                <input type="time" class="form-control" formControlName="purchaseTime">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-xl-6 col-lg-6 col-md-6 ">
+          <!-- Payment Type -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.PAYMENT_TYPE' | translate }}</label>
+            <input type="text" class="form-control" formControlName="paymentType">
+          </div>
+          <!-- Discount-->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.DISCOUNT' | translate }}</label>
+            <input type="number" class="form-control" formControlName="discount">
+          </div>
+          <!-- Payment Total -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.PAYMENT_TOTAL' | translate }}</label>
+            <input type="number" class="form-control" formControlName="paymentTotal">
+          </div>
+          <!-- Status -->
+          <div class="mb-3 form-group">
+            <label for="" class="form-label">{{ 'TABLE.STATUS' | translate }}</label>
+            <input type="text" class="form-control" formControlName="status">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="mt-3">
+            <label for="" class="form-label">Payment Method</label>
+            <div class="flex flex-wrap mt-2">
+              <div *ngFor="let method of listPaymentMethod">
+                <label>
+                  <div class="row w-275">
+                    <div class="col-1">
+                      <input class="form-check-input mr-10" type="radio" name="paymentMethod"
+                        formControlName="paymentMethod" [value]="method.code" />
+                    </div>
+                    <div class="col">
+                      <span class="form-check-label">{{ translate.currentLang === 'en' ? method.nameEn :
+                        method.nameVi}}</span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="card-footer d-flex flex-wrap gap-2 justify-content-center">
+        <button type="button" class="btn btn-danger waves-effect text-uppercase font-w600 btn-shadow"
+          (click)="onCancel()">
+          {{ 'BUTTON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase font-w600 btn-shadow"
+          (click)="onSubmitEditTransaction  ()">
+          {{ 'BUTTON.SUBMIT' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
